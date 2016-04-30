@@ -24,4 +24,5 @@ DISTFILES += \
 	bin/Desktop/debug/.gitkeep \
 	bin/Desktop/release/.gitkeep \
 	bin/Desktop/profile/.gitkeep \
+	res/.gitkeep \
 	README.md
