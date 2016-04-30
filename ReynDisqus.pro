@@ -7,18 +7,20 @@ CONFIG += c++11
 # C++ sources
 include(src/sources.pri)
 
-RESOURCES += qml.qrc
+# QML sources
+include(qml/qml.pri)
 
-# Additional import path used to resolve QML modules in Qt Creator's code model
-QML_IMPORT_PATH =
+RESOURCES += qml.qrc
 
 # Default rules for deployment.
 include(deployment.pri)
 
 DISTFILES += \
+	bin/Android/.gitkeep \
 	bin/Android/debug/.gitkeep \
 	bin/Android/release/.gitkeep \
 	bin/Android/profile/.gitkeep \
+	bin/Desktop/.gitkeep \
 	bin/Desktop/debug/.gitkeep \
 	bin/Desktop/release/.gitkeep \
 	bin/Desktop/profile/.gitkeep \
