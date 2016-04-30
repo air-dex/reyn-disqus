@@ -4,7 +4,8 @@ QT += qml quick widgets
 
 CONFIG += c++11
 
-SOURCES += main.cpp
+# C++ sources
+include(src/sources.pri)
 
 RESOURCES += qml.qrc
 
