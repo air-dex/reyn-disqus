@@ -7,6 +7,26 @@ Project content :
 	- /qml folder: QML sources (for UI).
 		- qml.pri: Project subfile for UI stuff.
 	- /res folder: Resources.
+		- res.pri: Project subfile for resources stuff
 	- /src foler: C++ sources.
 		- sources.pri: Project subfile where C++ source files are registered.
 	- README.md: This README.
+
+Building project :
+
+For Windows:
+
+The targeted compiler is MSVC 2013.
+
+```
+qmake.exe ReynDisqus.pro -r -spec win32-msvc2013
+# add "CONFIG+=debug" "CONFIG+=qml_debug" for debug
+# add "CONFIG+=qml_debug" "CONFIG+=force_debug_info" "CONFIG+=separate_debug_info" for profiling
+cd bin\Desktop
+jom.exe # Or make.exe
+cd ..\..
+```
+
+Building doc:
+
+TODO

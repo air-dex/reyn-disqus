@@ -4,13 +4,17 @@ QT += qml quick widgets
 
 CONFIG += c++11
 
+# Definitions for QMAKE extra targets
+include(python.pri)
+
 # C++ sources
 include(src/sources.pri)
 
 # QML sources
 include(qml/qml.pri)
 
-RESOURCES += qml.qrc
+# Resources
+include(res/res.pri)
 
 # Default rules for deployment.
 include(deployment.pri)
@@ -24,5 +28,4 @@ DISTFILES += \
 	bin/Desktop/debug/.gitkeep \
 	bin/Desktop/release/.gitkeep \
 	bin/Desktop/profile/.gitkeep \
-	res/.gitkeep \
 	README.md
