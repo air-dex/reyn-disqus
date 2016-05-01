@@ -7,11 +7,18 @@
 const QByteArray ReynDisqus::publicKey = "the Disqus app public key";
 const QByteArray ReynDisqus::secretKey = "the Disqus app secret key";
 const QString ReynDisqus::trustedDomain = QString::fromUtf8("A trusted domain of the app");
+const QString ReynDisqus::scopes = "App scopes";
 //*/
 
 const QString ReynDisqus::publicKeySettingsKey = "public_key";
 const QString ReynDisqus::secretKeySettingsKey = "secret_key";
 const QString ReynDisqus::trustedDomainSettingsKey = "trusted_domain";
+const QString ReynDisqus::scopesSettingsKey = "scopes";
+const QString ReynDisqus::usernameSettingsKey = "name";
+
+const QString ReynDisqus::disqusAPIBaseURLPattern = "https://disqus.com/api/3.0/%1";
+const QString ReynDisqus::disqusAPIOAuthAuthorizeURL = "https://disqus.com/api/oauth/2.0/authorize/";
+const QString ReynDisqus::disqusAPIOAuthAccessTokensURL = "https://disqus.com/api/oauth/2.0/access_token/";
 
 
 // App constants that should be exposed to QML.

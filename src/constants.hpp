@@ -7,11 +7,19 @@
 namespace ReynDisqus {
 	extern const QByteArray publicKey;
 	extern const QByteArray secretKey;
+	extern const QString scopes;
 	extern const QString trustedDomain;
 
 	extern const QString publicKeySettingsKey;
 	extern const QString secretKeySettingsKey;
 	extern const QString trustedDomainSettingsKey;
+	extern const QString usernameSettingsKey;
+	extern const QString scopesSettingsKey;
+
+	// API URLs
+	extern const QString disqusAPIBaseURLPattern;
+	extern const QString disqusAPIOAuthAuthorizeURL;
+	extern const QString disqusAPIOAuthAccessTokensURL;
 }
 
 /// @class Constants
