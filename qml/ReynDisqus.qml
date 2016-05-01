@@ -53,6 +53,13 @@ Item {
 				target: disqus
 				visible: false
 			}
+
+			StateChangeScript {
+				name: "authStart"
+				script: {
+					authScreen.startAuth();
+				}
+			}
 		},
 
 		// State while using Disqus
