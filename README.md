@@ -14,6 +14,8 @@ Project content :
 
 Building project :
 
+Be careful about tokens. I do not put my own tokens in the sources.
+
 For Windows:
 
 The targeted compiler is MSVC 2013.
