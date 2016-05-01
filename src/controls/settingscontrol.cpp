@@ -28,10 +28,12 @@ void SettingsControl::controlSettings() {
 		// Getting new tokens with better settings.
 		emit needAuth();
 	}
+	else if (rdSettings.getUserSettings().isEmpty()) {
+		// No user account. Create one.
+		emit needAuth();
+	}
 	else {
-		// TODO: check user's settings
-		qDebug("TODO: check user's settings");
-	}//*/
-
-	rdSettings.sync();
+		// All looks OK. Let's Disqus.
+		emit authOK();
+	}
 }

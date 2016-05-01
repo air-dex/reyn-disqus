@@ -13,19 +13,22 @@ class UserSettings : public QObject, public ISettings
 		/// @fn UserSettings();
 		/// @brief Default constructor, with registered settings.
 		UserSettings();
+
 		UserSettings(const UserSettings & usets);
 		const UserSettings & operator=(const UserSettings & usets);
 
-		UserSettings(DisqusApp app);
+		UserSettings(QString name, DisqusApp app);
 
 		virtual void sync();
+		bool isDefaultDisqusApp() const;
+		bool isEmpty() const;
 
 		DisqusApp getDisqusApp() const;
 		void setDisqusApp(const DisqusApp & value);
 
 	protected:
+		QString name;
 		DisqusApp disqusApp;
-		bool defaultDisqusApp;
 		void copy(const UserSettings & usets);
 };
 

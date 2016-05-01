@@ -10,6 +10,9 @@ UserSettings::UserSettings() : QObject()
 
 	settings.beginGroup("user");
 
+	// Account name
+	name = settings.value("name", "").toString();
+
 	// Auth entities
 	settings.beginGroup("auth");
 
@@ -18,7 +21,6 @@ UserSettings::UserSettings() : QObject()
 	disqusApp.setPublicKey(QByteArray::fromBase64(settings.value(ReynDisqus::publicKeySettingsKey).toByteArray()));
 	disqusApp.setSecretKey(QByteArray::fromBase64(settings.value(ReynDisqus::secretKeySettingsKey).toByteArray()));
 	disqusApp.setTrustedDomain(settings.value(ReynDisqus::trustedDomainSettingsKey).toUrl());
-	defaultDisqusApp = disqusApp.isDefaultApp();
 	settings.endGroup();
 
 	// OAuth tokens
@@ -29,10 +31,10 @@ UserSettings::UserSettings() : QObject()
 	settings.endGroup();	// End read
 }
 
-UserSettings::UserSettings(DisqusApp app) :
+UserSettings::UserSettings(QString name, DisqusApp app) :
 	QObject(),
-	disqusApp(app),
-	defaultDisqusApp(app.isDefaultApp())
+	name(name),
+	disqusApp(app)
 {}
 
 UserSettings::UserSettings(const UserSettings & usets) : QObject()
@@ -56,6 +58,8 @@ void UserSettings::sync()
 	BUILD_SETTINGS(settings);
 	settings.beginGroup("user");
 
+	settings.setValue("name", name);
+
 	settings.beginGroup("auth");
 
 	// Disqus app used by the user
@@ -75,6 +79,16 @@ void UserSettings::sync()
 	settings.sync();
 }
 
+bool UserSettings::isDefaultDisqusApp() const
+{
+	return disqusApp.isDefaultApp();
+}
+
+bool UserSettings::isEmpty() const
+{
+	return name == "";
+}
+
 DisqusApp UserSettings::getDisqusApp() const
 {
 	return disqusApp;
@@ -83,5 +97,4 @@ DisqusApp UserSettings::getDisqusApp() const
 void UserSettings::setDisqusApp(const DisqusApp & value)
 {
 	disqusApp = value;
-	defaultDisqusApp = disqusApp.isDefaultApp();
 }
