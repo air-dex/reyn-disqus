@@ -5,10 +5,11 @@
 #include <QSettings>
 #include "../../constants.hpp"
 
-DisqusApp::DisqusApp(QByteArray pkey, QByteArray skey, QString trdom) :
+DisqusApp::DisqusApp(QByteArray pkey, QByteArray skey, QString trdom, DisqusScopesSet scopesSet) :
 	publicKey(pkey),
 	secretKey(skey),
-	trustedDomain(trdom)
+	trustedDomain(trdom),
+	scopes(scopesSet)
 {}
 
 DisqusApp::DisqusApp(const DisqusApp & disqus)
@@ -27,7 +28,8 @@ bool DisqusApp::operator==(const DisqusApp & disqus) const
 	return this->publicKey == disqus.publicKey
 		&& this->secretKey == disqus.secretKey
 		&& this->trustedDomain == disqus.trustedDomain
-			;
+		&& this->scopes == disqus.scopes
+	;
 }
 
 bool DisqusApp::isDefaultApp() const
@@ -40,6 +42,7 @@ void DisqusApp::copy(const DisqusApp & disqus)
 	this->publicKey = disqus.publicKey;
 	this->secretKey = disqus.secretKey;
 	this->trustedDomain = disqus.trustedDomain;
+	this->scopes = disqus.scopes;
 }
 
 QByteArray DisqusApp::getPublicKey() const
@@ -70,4 +73,14 @@ QUrl DisqusApp::getTrustedDomain() const
 void DisqusApp::setTrustedDomain(const QUrl & value)
 {
 	trustedDomain = value;
+}
+
+DisqusScopesSet DisqusApp::getScopes() const
+{
+	return scopes;
+}
+
+void DisqusApp::setScopes(const DisqusScopesSet & value)
+{
+	scopes = value;
 }

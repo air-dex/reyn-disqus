@@ -4,8 +4,10 @@
 #include <QByteArray>
 #include <QString>
 #include <QUrl>
+#include <QSet>
 
 #include "../../constants.hpp"
+#include "disqusscopesset.hpp"
 
 class DisqusApp
 {
@@ -14,7 +16,8 @@ class DisqusApp
 		DisqusApp(
 			QByteArray pkey = QByteArray::fromBase64(ReynDisqus::publicKey),
 			QByteArray skey = QByteArray::fromBase64(ReynDisqus::secretKey),
-			QString trdom = ReynDisqus::trustedDomain
+			QString trdom = ReynDisqus::trustedDomain,
+			DisqusScopesSet scopesSet = DisqusScopesSet(ReynDisqus::scopes)
 		);
 
 		DisqusApp(const DisqusApp & disqus);
@@ -32,10 +35,14 @@ class DisqusApp
 		QUrl getTrustedDomain() const;
 		void setTrustedDomain(const QUrl & value);
 
+		DisqusScopesSet getScopes() const;
+		void setScopes(const DisqusScopesSet & value);
+
 	protected:
 		QByteArray publicKey;
 		QByteArray secretKey;
 		QUrl trustedDomain;
+		DisqusScopesSet scopes;
 
 		void copy(const DisqusApp & disqus);
 };

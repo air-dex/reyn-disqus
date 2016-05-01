@@ -1,6 +1,10 @@
 TEMPLATE = app
 
-QT += qml quick widgets
+QT += qml quick webview
+
+!android {
+	QT += widgets
+}
 
 CONFIG += c++11
 

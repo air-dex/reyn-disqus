@@ -18,6 +18,8 @@ class ApplicationSettings : public ISettings
 
 		virtual void sync();
 
+		const DisqusApp getDisqusApp() const;
+
 	protected:
 		DisqusApp disqusApp;
 };

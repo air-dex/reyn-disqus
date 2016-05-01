@@ -11,7 +11,7 @@ UserSettings::UserSettings() : QObject()
 	settings.beginGroup("user");
 
 	// Account name
-	name = settings.value("name", "").toString();
+	name = settings.value(ReynDisqus::usernameSettingsKey, "").toString();
 
 	// Auth entities
 	settings.beginGroup("auth");
@@ -21,6 +21,7 @@ UserSettings::UserSettings() : QObject()
 	disqusApp.setPublicKey(QByteArray::fromBase64(settings.value(ReynDisqus::publicKeySettingsKey).toByteArray()));
 	disqusApp.setSecretKey(QByteArray::fromBase64(settings.value(ReynDisqus::secretKeySettingsKey).toByteArray()));
 	disqusApp.setTrustedDomain(settings.value(ReynDisqus::trustedDomainSettingsKey).toUrl());
+	disqusApp.setScopes(DisqusScopesSet(settings.value(ReynDisqus::scopesSettingsKey).toString()));
 	settings.endGroup();
 
 	// OAuth tokens
@@ -58,15 +59,16 @@ void UserSettings::sync()
 	BUILD_SETTINGS(settings);
 	settings.beginGroup("user");
 
-	settings.setValue("name", name);
+	settings.setValue(ReynDisqus::usernameSettingsKey, name);
 
 	settings.beginGroup("auth");
 
 	// Disqus app used by the user
 	settings.beginGroup("app");
-	settings.setValue(ReynDisqus::publicKeySettingsKey, QVariant::fromValue<QByteArray>(disqusApp.getPublicKey().toBase64()));
-	settings.setValue(ReynDisqus::secretKeySettingsKey, QVariant::fromValue<QByteArray>(disqusApp.getSecretKey().toBase64()));
-	settings.setValue(ReynDisqus::trustedDomainSettingsKey, QVariant::fromValue<QUrl>(disqusApp.getTrustedDomain()));
+	settings.setValue(ReynDisqus::publicKeySettingsKey, disqusApp.getPublicKey().toBase64());
+	settings.setValue(ReynDisqus::secretKeySettingsKey, disqusApp.getSecretKey().toBase64());
+	settings.setValue(ReynDisqus::trustedDomainSettingsKey, disqusApp.getTrustedDomain());
+	settings.setValue(ReynDisqus::scopesSettingsKey, disqusApp.getScopes().toString());
 	settings.endGroup();
 
 	// User OAuth tokens

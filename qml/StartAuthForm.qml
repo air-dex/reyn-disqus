@@ -12,9 +12,25 @@ ColumnLayout {
 	property alias secretKey: secretKeyField.text
 	property alias domain: domainField.text
 
+	function getScopes() {
+		var scopes = [];
+		var cbs = [readScope, writeScope, adminScope, emailScope];
+
+		for (var i in cbs) {
+			var cb = cbs[i];
+			if (cb.checked) {
+				scopes.push(scopesUtil.getScopeStr(cb.scope));
+			}
+		}
+
+		return scopes.join(",");
+	}
+
 	signal connect
 
 	Constants { id: constants }
+
+	DisqusScopes { id: scopesUtil }
 
 	Text {
 		id: connectLabel
@@ -28,7 +44,7 @@ ColumnLayout {
 
 	GridLayout {
 		id: otherAppCreds
-		rows: 3
+		rows: 4
 		columns: 2
 		enabled: useOther
 		width: startAuthForm.width
@@ -49,20 +65,26 @@ ColumnLayout {
 
 		TextField {
 			id: publicKeyField
-			width: 3 * otherAppCreds.labelWidth
 			placeholderText: qsTr("Disqus app's public key")
+			anchors {
+				left: scopesField.left
+				right: scopesField.right
+			}
 		}
 
 		// Secret key
 		Label {
 			id: secretKeyLabel
-			width: 3 * otherAppCreds.labelWidth
 			text: qsTr("Secret key")
 		}
 
 		TextField {
 			id: secretKeyField
 			placeholderText: qsTr("Disqus app's secret key")
+			anchors {
+				left: scopesField.left
+				right: scopesField.right
+			}
 		}
 
 		// Trusted domain
@@ -73,11 +95,47 @@ ColumnLayout {
 
 		TextField {
 			id: domainField
-			width: 3 * otherAppCreds.labelWidth
 			placeholderText: qsTr("An app's trusted domain")
+			anchors {
+				left: scopesField.left
+				right: scopesField.right
+			}
 		}
 
+		// Scopes
+		Label {
+			id: scopesLabel
+			text: qsTr("Scopes")
+		}
 
+		RowLayout {
+			id: scopesField
+			spacing: constants.margin
+
+			CheckBox {
+				id: readScope
+				text: qsTr("Read")
+				readonly property int scope: DisqusScopes.READ
+			}
+
+			CheckBox {
+				id: writeScope
+				text: qsTr("Write")
+				readonly property int scope: DisqusScopes.WRITE
+			}
+
+			CheckBox {
+				id: adminScope
+				text: qsTr("Admin")
+				readonly property int scope: DisqusScopes.ADMIN
+			}
+
+			CheckBox {
+				id: emailScope
+				text: qsTr("Email")
+				readonly property int scope: DisqusScopes.EMAIL
+			}
+		}
 	}
 
 	Button {

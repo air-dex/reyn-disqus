@@ -1,5 +1,6 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
+#include <QtWebView>
 
 #include "global.hpp"
 
@@ -7,6 +8,7 @@ int main(int argc, char *argv[])
 {
 	QApplication app(argc, argv);
 
+	QtWebView::initialize();
 	ReynDisqus::declareQML();
 
 	QQmlApplicationEngine engine;
