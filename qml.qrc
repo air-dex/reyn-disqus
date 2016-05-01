@@ -1,5 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file>qml/main.qml</file>
+        <file>qml/AuthPanel.qml</file>
+        <file>qml/DisqusPanel.qml</file>
+        <file>qml/ReynDisqus.qml</file>
+        <file>qml/SplashScreen.qml</file>
     </qresource>
 </RCC>

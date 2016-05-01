@@ -28,4 +28,5 @@ DISTFILES += \
 	bin/Desktop/debug/.gitkeep \
 	bin/Desktop/release/.gitkeep \
 	bin/Desktop/profile/.gitkeep \
+	qml.qrc \
 	README.md

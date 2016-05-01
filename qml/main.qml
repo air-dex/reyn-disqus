@@ -21,8 +21,9 @@ ApplicationWindow {
 		}
 	}
 
-	Label {
-		text: qsTr("Hello World")
-		anchors.centerIn: parent
+	ReynDisqus {
+		id: reynDisqus
+		anchors.fill: parent
+		visible: true
 	}
 }
