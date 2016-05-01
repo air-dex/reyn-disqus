@@ -68,3 +68,11 @@ QString Constants::appName()
 {
 	return Constants::APP_NAME;
 }
+
+// QML default margin
+int Constants::DEFAULT_MARGIN = 5;
+
+int Constants::getMargin()
+{
+	return DEFAULT_MARGIN;
+}

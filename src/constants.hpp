@@ -31,6 +31,7 @@ class Constants : public QObject
 		static int patchVersion();
 		static QString companyName();
 		static QString appName();
+		static int getMargin();
 
 	protected:
 		// Major version
@@ -52,6 +53,10 @@ class Constants : public QObject
 		// Application name
 		Q_PROPERTY(QString appName READ appName)
 		static QString APP_NAME;
+
+		// Default margin
+		Q_PROPERTY(int margin READ getMargin)
+		static int DEFAULT_MARGIN;
 };
 
 #endif // CONSTANTS_HPP
