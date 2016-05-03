@@ -11,6 +11,7 @@ ColumnLayout {
 	property alias publicKey: publicKeyField.text
 	property alias secretKey: secretKeyField.text
 	property alias domain: domainField.text
+	property alias errorMessage: errorAuth.text
 
 	function getScopes() {
 		var scopes = [];
@@ -31,6 +32,17 @@ ColumnLayout {
 	Constants { id: constants }
 
 	DisqusScopes { id: scopesUtil }
+
+	Text {
+		id: errorAuth
+
+		// FIXME: Text wrap when it is too long
+		text: ""
+		color: constants.errorColor
+		font.bold: true
+		wrapMode: Text.Wrap
+		visible: errorAuth.text != ""
+	}
 
 	Text {
 		id: connectLabel

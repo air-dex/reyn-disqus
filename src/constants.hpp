@@ -2,6 +2,7 @@
 #define CONSTANTS_HPP
 
 #include <QObject>
+#include <QColor>
 
 // App constants that should NOT be exposed to QML.
 namespace ReynDisqus {
@@ -41,30 +42,46 @@ class Constants : public QObject
 		static QString appName();
 		static int getMargin();
 
+		static QColor getErrorColor();
+
 	protected:
 		// Major version
-		Q_PROPERTY(int majorVersion READ majorVersion)
+		Q_PROPERTY(int majorVersion READ majorVersion NOTIFY majorVersionChanged)
 		static int MAJOR_VERSION;
 
 		// Minor version
-		Q_PROPERTY(int minorVersion READ minorVersion)
+		Q_PROPERTY(int minorVersion READ minorVersion NOTIFY minorVersionChanged)
 		static int MINOR_VERSION;
 
 		// Patch version
-		Q_PROPERTY(int patchVersion READ patchVersion)
+		Q_PROPERTY(int patchVersion READ patchVersion NOTIFY patchVersionChanged)
 		static int PATCH_VERSION;
 
 		// Company name
-		Q_PROPERTY(QString companyName READ companyName)
+		Q_PROPERTY(QString companyName READ companyName NOTIFY companyNameChanged)
 		static QString COMPANY_NAME;
 
 		// Application name
-		Q_PROPERTY(QString appName READ appName)
+		Q_PROPERTY(QString appName READ appName NOTIFY appNameChanged)
 		static QString APP_NAME;
 
 		// Default margin
-		Q_PROPERTY(int margin READ getMargin)
+		Q_PROPERTY(int margin READ getMargin NOTIFY marginChanged)
 		static int DEFAULT_MARGIN;
+
+		// Red color
+		Q_PROPERTY(QColor errorColor READ getErrorColor NOTIFY errorColorChanged)
+		static QColor ERROR_COLOR;
+
+	signals:
+		// Useless property signals
+		void majorVersionChanged();
+		void minorVersionChanged();
+		void patchVersionChanged();
+		void companyNameChanged();
+		void appNameChanged();
+		void marginChanged();
+		void errorColorChanged();
 };
 
 #endif // CONSTANTS_HPP

@@ -13,10 +13,7 @@ class AuthControl : public QObject
 		static void declareQML();
 		Q_INVOKABLE QUrl computeAuthorizeURL(QString publicKey, QString scopes, QUrl redirectURI);
 		Q_INVOKABLE QUrl computeDefaultAuthorizeURL();
-	signals:
-		void error(QString errMsg);
-
-	public slots:
+		Q_INVOKABLE QString trackOAuthCode(QUrl url, QUrl * redirectURI = NULL);
 };
 
 #endif // AUTHCONTROL_HPP

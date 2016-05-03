@@ -83,3 +83,11 @@ int Constants::getMargin()
 {
 	return DEFAULT_MARGIN;
 }
+
+// Error color
+QColor Constants::ERROR_COLOR = QColor::fromRgb(0xff, 0x00, 0x00);
+
+QColor Constants::getErrorColor()
+{
+	return ERROR_COLOR;
+}
