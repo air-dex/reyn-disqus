@@ -2,12 +2,13 @@
 
 #include "../utils.hpp"
 #include "../constants.hpp"
+#include "../model/settings/applicationsettings.hpp"
+#include "../connection/authenticator.hpp"
 #include <QtQml>
 #include <QJsonObject>
 #include <QUrl>
-#include "../model/settings/applicationsettings.hpp"
 
-AuthControl::AuthControl() : QObject() {}
+AuthControl::AuthControl() : QObject(), disqus(this) {}
 
 DECLARE_QML(AuthControl, "AuthControl")
 
@@ -59,22 +60,33 @@ QString AuthControl::trackOAuthCode(QUrl url, QUrl * redirectURI)
 	domainURL.setScheme(url.scheme());
 
 	if (!url.host().endsWith(domain.host())) {
-		// It is not our URL. Keep on tracking.
+		// It is not our URL. URL Tracker
 		return "";
 	}
 
 	// It is our domain. Now let's retrieve the code.
 	if (!url.hasQuery()) {
-		// No query, no code. Keep on tracking.
+		// No query, no code. What r u doin?
 		return "";
 	}
 
 	QUrlQuery query(url.query());
 
 	if (!query.hasQueryItem("code")) {
-		// No code in the query. Keep on tracking.
+		// No code in the query. URL Tracker
 		return "";
 	}
 
+	// STAHP!
 	return query.queryItemValue("code");
 }
+
+void AuthControl::accessTokens(QString publicKey, QString secretKey, QUrl redirectURI, QString code)
+{
+	Authenticator a(publicKey.toLatin1(), secretKey.toLatin1());
+	disqus.setAuthInfos(a);
+	// TODO: connect to return slot
+	disqus.accessTokens(redirectURI, code);
+}
+
+// TODO: return slot

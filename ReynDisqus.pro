@@ -1,6 +1,6 @@
 TEMPLATE = app
 
-QT += qml quick webview
+QT += qml quick webview network
 
 !android {
 	QT += widgets

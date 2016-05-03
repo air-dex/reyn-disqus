@@ -18,6 +18,7 @@ namespace ReynDisqus {
 	extern const QString scopesSettingsKey;
 
 	// API URLs
+	extern const QString FAKE_URL;
 	extern const QString disqusAPIBaseURLPattern;
 	extern const QString disqusAPIOAuthAuthorizeURL;
 	extern const QString disqusAPIOAuthAccessTokensURL;
