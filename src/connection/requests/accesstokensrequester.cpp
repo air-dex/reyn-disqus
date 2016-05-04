@@ -1,9 +1,11 @@
 #include "accesstokensrequester.hpp"
 
 #include "../../constants.hpp"
+#include <QJsonObject>
 
 AccessTokensRequester::AccessTokensRequester(Authenticator authInfos, QUrl redirectURI, QString code) :
 	GenericRequester(authInfos, HTTPRequestType::POST, ReynDisqus::disqusAPIOAuthAccessTokensURL),
+	redirectURI(redirectURI),
 	code(code)
 {}
 
@@ -18,4 +20,21 @@ ArgsMap AccessTokensRequester::buildPOSTParameters()
 	postParams.insert("code", code);
 
 	return postParams;
+}
+
+ResponseInfos AccessTokensRequester::treatServiceErrors(QJsonObject parsedResults, bool & hasServiceError)
+{
+	ResponseInfos res;
+
+	hasServiceError = parsedResults.contains("error");
+	res.code = hasServiceError;
+	res.message = hasServiceError ?
+		  QString("%1: %2.").arg(
+			parsedResults["error"].toString(),
+			parsedResults["error_description"].toString()
+		  )
+		: tr("No service error.")
+	;
+
+	return res;
 }

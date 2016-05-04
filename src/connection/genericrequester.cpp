@@ -1,5 +1,9 @@
 #include "genericrequester.hpp"
 
+#include <QByteArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+
 GenericRequester::GenericRequester(Authenticator authInfos, HTTPRequestType reqtype, QString uri, QByteArray ctype) :
 	QObject(),
 	uuid(QUuid::createUuid()),
@@ -101,51 +105,72 @@ void GenericRequester::treatResults(NetworkResponse netResponse) {
 	// Deleting the Communicator
 	this->removeCommunicator(qobject_cast<Communicator *>(sender()));
 
-//	RequestResult requestResult;
+	RequestResult requestResult;
 
-//	// Looking the HTTP request
-//	ResponseInfos netHTTPRep = netResponse.getHttpResponse();
-//	requestResult.httpResponse = netHTTPRep;
-//	requestResult.errorMessage = netResponse.getRequestError();
+	// Looking the HTTP request
+	ResponseInfos netHTTPRep = netResponse.getHttpResponse();
+	requestResult.httpResponse = netHTTPRep;
+	requestResult.errorMessage = netResponse.getRequestError();
 
-//	switch (netHTTPRep.code) {
-//		case INVALID_HTTP_CODE:
-//			// Invalid response => INVALID_RESULT
-//			requestResult.resultType = INVALID_RESULT;
-//			break;
+	switch (netHTTPRep.code) {
+		case INVALID_HTTP_CODE:
+			// Invalid response => INVALID_RESULT
+			requestResult.resultType = INVALID_RESULT;
+			break;
 
-//		case TIMEOUT_HTTP_CODE:
-//			// No response (because of timeout) => API_CALL
-//			requestResult.resultType = API_CALL;
-//			break;
+		case TIMEOUT_HTTP_CODE:
+			// No response (because of timeout) => API_CALL
+			requestResult.resultType = API_CALL;
+			break;
 
-//		default: {
-//			// Parsing the response and filling requestResult
-//			bool parseOK;
-//			QVariantMap parseErrorMap;
-//			requestResult.parsedResult = this->parseResult(netResponse,
-//														   parseOK,
-//														   parseErrorMap);
-//			requestResult.parsingErrors.code = parseErrorMap.value("lineError").toInt();
-//			requestResult.parsingErrors.message = parseErrorMap.value("errorMsg").toString();
+		default: {
+			// Parsing results. A JSON object is expected.
+			QJsonParseError parseErr;
+			QJsonDocument doc = QJsonDocument::fromJson(netResponse.getResponseBody(), &parseErr);
+			requestResult.parsingErrors.code = parseErr.error;
+			requestResult.parsingErrors.message = parseErr.errorString();
+			bool parseOK = (parseErr.error == QJsonParseError::NoError);
 
-//			if (parseOK) {
-//				// Other treatments related to the service
-//				requestResult.serviceErrors = this->treatServiceErrors(requestResult.parsedResult,
-//																	   netResponse);
-//				// Updating the NetworkResultType with service errors
-//				requestResult.resultType = requestResult.serviceErrors.isEmpty() ?
-//							NO_REQUEST_ERROR
-//						  : SERVICE_ERRORS;
-//			} else {
-//				requestResult.resultType = parsingErrorType;
+			QJsonObject parsedRep;
+			if (parseOK && doc.isObject()) {
+				parsedRep = doc.object();
+				requestResult.resultType = NO_REQUEST_ERROR;
+				requestResult.parsedResult = QVariant::fromValue<QJsonObject>(parsedRep);
+			}
+			else if (parseOK && !doc.isObject()) {
+				QJsonObject rep = doc.object();
+				requestResult.resultType = JSON_PARSING;
+				requestResult.parsedResult = QVariant::fromValue<QByteArray>(netResponse.getResponseBody());
+				requestResult.parsingErrors.message = tr("The JSON response is parsed correctly but an object was expected.");
+			}
+			else {
+				// Parsing error
+				requestResult.resultType = JSON_PARSING;
+				requestResult.parsedResult = QVariant::fromValue<QByteArray>(netResponse.getResponseBody());
+			}
 
-//				// Giving the response just in case the user would like to do sthg with it.
-//				requestResult.parsedResult = QVariant::fromValue(netResponse.getResponseBody());
-//			}
-//		} break;
-//	}
+			// Service errors
+			if (requestResult.resultType == NO_REQUEST_ERROR) {
+				bool serviceError = false;
+				requestResult.serviceError = treatServiceErrors(parsedRep, serviceError);
 
-//	// Telling the Calls that the request is finished
-//	emit requestDone(requestResult);
+				if (serviceError) {
+					requestResult.resultType = SERVICE_ERROR;
+				}
+			}
+		} break;
+	}
+
+	// Telling the Calls that the request is finished
+	emit requestEnded(requestResult);
+}
+
+// TODO: improve when it's time to do it.
+ResponseInfos GenericRequester::treatServiceErrors(QJsonObject parsedResults, bool & hasServiceError)
+{
+	ResponseInfos serviceError;
+	serviceError.code = parsedResults["code"].toInt();
+	serviceError.message = parsedResults["error"].toString();
+	hasServiceError = (serviceError.code == 0);
+	return serviceError;
 }

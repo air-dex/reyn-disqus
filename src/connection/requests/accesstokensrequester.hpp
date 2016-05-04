@@ -15,8 +15,10 @@ class AccessTokensRequester : public GenericRequester
 		/// @return POST parameters that will be passed to the Communicator.
 		virtual ArgsMap buildPOSTParameters();
 
-		QString code;
+		virtual ResponseInfos treatServiceErrors(QJsonObject parsedResults, bool & hasServiceError);
+
 		QUrl redirectURI;
+		QString code;
 };
 
 #endif // ACCESSTOKENSREQUESTER_HPP

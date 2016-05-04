@@ -16,7 +16,7 @@ ApplicationSettings::ApplicationSettings()
 	disqusApp.setPublicKey(QByteArray::fromBase64(settings.value(ReynDisqus::publicKeySettingsKey).toByteArray()));
 	disqusApp.setSecretKey(QByteArray::fromBase64(settings.value(ReynDisqus::secretKeySettingsKey).toByteArray()));
 	disqusApp.setTrustedDomain(settings.value(ReynDisqus::trustedDomainSettingsKey).toUrl());
-	disqusApp.setScopes(DisqusScopesSet(settings.value(ReynDisqus::scopesSettingsKey).toString()));
+	disqusApp.setScopes(DisqusScopesSet(settings.value(ReynDisqus::appScopesSettingsKey).toString()));
 	settings.endGroup();	// End auth
 
 	settings.endGroup();	// End read
@@ -45,7 +45,7 @@ void ApplicationSettings::sync()
 	settings.setValue(ReynDisqus::publicKeySettingsKey, disqusApp.getPublicKey().toBase64());
 	settings.setValue(ReynDisqus::secretKeySettingsKey, disqusApp.getSecretKey().toBase64());
 	settings.setValue(ReynDisqus::trustedDomainSettingsKey, disqusApp.getTrustedDomain());
-	settings.setValue(ReynDisqus::scopesSettingsKey, disqusApp.getScopes().toString());
+	settings.setValue(ReynDisqus::appScopesSettingsKey, disqusApp.getScopes().toString());
 	settings.endGroup();
 
 	// Close group and sync.

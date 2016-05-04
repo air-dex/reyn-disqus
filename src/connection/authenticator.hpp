@@ -9,7 +9,7 @@ class Authenticator
 	public:
 		Authenticator(QByteArray appPublicKey = "", QByteArray appSecretKey = "", QByteArray userAccessToken = "");
 		Authenticator(const Authenticator & authInfos);
-		const Authenticator & operator=(const Authenticator &  authInfos);
+		const Authenticator & operator=(const Authenticator & authInfos);
 
 		QByteArray getAppPublicKey() const;
 		void setAppPublicKey(const QByteArray & value);

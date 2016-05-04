@@ -1,7 +1,6 @@
 #ifndef REQUESTRESULT_HPP
 #define REQUESTRESULT_HPP
 
-#include <QList>
 #include <QVariant>
 #include "httpcode.hpp"
 #include "responseinfos.hpp"
@@ -20,8 +19,8 @@ struct RequestResult {
 		/// @brief HTTP response (code and reason)
 		ResponseInfos httpResponse;
 
-		/// @brief Services (ex. Twitter) error responses (code and reason)
-		QList<ResponseInfos> serviceErrors;
+		/// @brief Services (ex. Twitter) error response (code and reason)
+		ResponseInfos serviceError;
 
 		/// @brief Potential errors that can occur while parsing results.
 		///
@@ -38,7 +37,7 @@ struct RequestResult {
 			resultType(INVALID_RESULT),
 			parsedResult(),
 			httpResponse(),
-			serviceErrors(),
+			serviceError(),
 			parsingErrors(),
 			errorMessage("")
 		{}

@@ -82,30 +82,13 @@ class GenericRequester : public QObject
 			void treatResults(NetworkResponse netResponse);
 
 		protected:
-//			/// @fn virtual QVariant parseResult(NetworkResponse results,
-//			///									 bool & parseOK,
-//			///									 QVariantMap & parsingErrors) = 0;
-//			/// @brief Method that will parse the raw results of the request.
-//			/// @param results Results to parse. Most of the time the method only
-//			/// uses the responseBody field.
-//			/// @param parseOK Boolean whose value will be set to true if there was
-//			/// no problem while parsing, false otherwise.
-//			/// @param parsingErrors QVariantMap that may contain information about
-//			/// errors that may occur while parsing.
-//			/// @return Parsed results
-//			virtual QVariant parseResult(NetworkResponse results,
-//										 bool & parseOK,
-//										 QVariantMap & parsingErrors) = 0;
-
-//			/// @fn virtual QList<ResponseInfos> treatServiceErrors(QVariant parsedResults,
-//			///														NetworkResponse netResponse) = 0;
-//			/// @brief Treating parsed results
-//			/// @param parsedResults Parsed results to analyse in order to retrieve
-//			/// service errors.
-//			/// @param netResponse Other network response elements, if needed.
-//			/// @return The list of service errors
-//			virtual QList<ResponseInfos> treatServiceErrors(QVariant parsedResults,
-//															NetworkResponse netResponse) = 0;
+			/// @fn virtual QList<ResponseInfos> treatServiceErrors(QJsonObject parsedResults, bool & hasServiceError);
+			/// @brief Treating parsed results
+			/// @param parsedResults Parsed results to analyse in order to retrieve
+			/// service errors.
+			/// @param hasServiceError Boolean indicatond whetther a service error occurs.
+			/// @return Potential service error information.
+			virtual ResponseInfos treatServiceErrors(QJsonObject parsedResults, bool & hasServiceError);
 
 		signals:
 			/// @fn void requestDone(RequestResult requestResult);

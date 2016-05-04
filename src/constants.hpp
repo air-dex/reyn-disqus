@@ -11,11 +11,23 @@ namespace ReynDisqus {
 	extern const QString scopes;
 	extern const QString trustedDomain;
 
+	// app/auth and user/auth/app settings key
 	extern const QString publicKeySettingsKey;
 	extern const QString secretKeySettingsKey;
 	extern const QString trustedDomainSettingsKey;
+	extern const QString appScopesSettingsKey;
+
+	// user/auth/user settings key
+	extern const QString accessTokenSettingsKey;
+	extern const QString expiresInSettingsKey;
+	extern const QString tokenTypeSettingsKey;
+	extern const QString stateSettingsKey;
+	extern const QString userScopeSettingsKey;
+	extern const QString refreshTokenSettingsKey;
+
+	// user/infos settings key
 	extern const QString usernameSettingsKey;
-	extern const QString scopesSettingsKey;
+	extern const QString idSettingsKey;
 
 	// API URLs
 	extern const QString FAKE_URL;

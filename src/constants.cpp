@@ -10,12 +10,25 @@ const QString ReynDisqus::trustedDomain = QString::fromUtf8("A trusted domain of
 const QString ReynDisqus::scopes = "App scopes";
 //*/
 
+// app/auth and user/auth/app settings key
 const QString ReynDisqus::publicKeySettingsKey = "public_key";
 const QString ReynDisqus::secretKeySettingsKey = "secret_key";
 const QString ReynDisqus::trustedDomainSettingsKey = "trusted_domain";
-const QString ReynDisqus::scopesSettingsKey = "scopes";
-const QString ReynDisqus::usernameSettingsKey = "name";
+const QString ReynDisqus::appScopesSettingsKey = "scopes";
 
+// user/auth/user settings key
+const QString ReynDisqus::accessTokenSettingsKey = "access_token";
+const QString ReynDisqus::expiresInSettingsKey = "expires_in";
+const QString ReynDisqus::tokenTypeSettingsKey = "token_type";
+const QString ReynDisqus::stateSettingsKey = "state";
+const QString ReynDisqus::userScopeSettingsKey = "scope";
+const QString ReynDisqus::refreshTokenSettingsKey = "refresh_token";
+
+// user/infos settings key
+const QString ReynDisqus::usernameSettingsKey = "name";
+const QString ReynDisqus::idSettingsKey = "id";
+
+// API URLs
 const QString ReynDisqus::FAKE_URL = "";
 const QString ReynDisqus::disqusAPIBaseURLPattern = "https://disqus.com/api/3.0/%1";
 const QString ReynDisqus::disqusAPIOAuthAuthorizeURL = "https://disqus.com/api/oauth/2.0/authorize/";

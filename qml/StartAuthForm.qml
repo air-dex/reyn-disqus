@@ -7,6 +7,7 @@ ColumnLayout {
 	id: startAuthForm
 	spacing: constants.margin
 
+	property alias disqusApp: disqusApp
 	property alias useOther: useOtherApp.checked
 	property alias publicKey: publicKeyField.text
 	property alias secretKey: secretKeyField.text
@@ -32,6 +33,14 @@ ColumnLayout {
 	Constants { id: constants }
 
 	DisqusScopes { id: scopesUtil }
+
+	DisqusApp {
+		id: disqusApp
+		publicKey: publicKeyField.text
+		secretKey: secretKeyField.text
+		trustedDomain: domainField.text
+		scopes: startAuthForm.getScopes()
+	}
 
 	Text {
 		id: errorAuth

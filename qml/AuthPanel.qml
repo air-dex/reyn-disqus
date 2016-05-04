@@ -6,8 +6,6 @@ import RDCore 1.0
 Rectangle {
 	id: authPanel
 
-	property string oauthCode
-
 	// Emitted when an OAuth code cannot be found
 	signal noOAuthCode(string errMsg)
 
@@ -16,13 +14,25 @@ Rectangle {
 
 	AuthControl {
 		id: control
+		onAuthEnded: console.log("TODO: Fin de l'auth");
+		onFatalError: authPanel.fatalError(error);
 	}
 
 	StartAuthForm {
 		id: startAuthForm
 		anchors.centerIn: parent
 		visible: true
-		onConnect: authPanel.state = "redeem_code";
+		onConnect: {
+			// Start OAuth process.
+			if (startAuthForm.useOther) {
+				control.disqusApp = startAuthForm.disqusApp;
+			}
+			else {
+				control.setDefaultAuthData();
+			}
+
+			authPanel.state = "redeem_code";
+		}
 	}
 
 	WebView {
@@ -30,18 +40,17 @@ Rectangle {
 		visible: false
 		anchors.fill: parent
 
-		// Better if possible
-		Component.onCompleted: clearWebViewCookies()
-
 		property url authURL
 
+		// Better if possible
+		Component.onCompleted: clearWebViewCookies()
 		onLoadingChanged: {
 			// "hidden" arg : loadRequest
 
 			switch (loadRequest.status) {
 				case WebView.LoadFailedStatus:
 				case WebView.LoadSucceededStatus:
-					if (loadRequest.url == authURL) {
+					if (loadRequest.url == redeemView.authURL) {
 						if (loadRequest.status == WebView.LoadSucceededStatus) {
 							mostAnnoyingThingEver.visible = false;
 							redeemView.visible = true;
@@ -55,12 +64,10 @@ Rectangle {
 					}
 
 					// track URL
-					oauthCode = startAuthForm.useOther ?
-						  control.trackOAuthCode(loadRequest.url, startAuthForm.domain)
-						: control.trackOAuthCode(loadRequest.url)
-					;
+					control.oauthCode = control.trackOAuthCode(loadRequest.url);
+					console.log("OAuth code = " + control.oauthCode);
 
-					if (oauthCode == "") {
+					if (control.oauthCode == "") {
 						// No code. Tell and restart auth
 						noOAuthCode(qsTr("A code necessary to the authentication process cannot be retrieved. The domain might not be convenient. Try again."))
 						break;
@@ -81,9 +88,10 @@ Rectangle {
 		}
 	}
 
-	// FIXME:  Too big!
 	BusyIndicator {
 		id: mostAnnoyingThingEver
+		width: parent.width / 2
+		height: parent.height / 2
 		anchors.fill: parent
 		visible: false
 		running: visible
@@ -124,7 +132,7 @@ Rectangle {
 			StateChangeScript {
 				name: "init_auth"
 				script: {
-					oauthCode = ""
+					control.resetAuthData();
 					clearWebViewCookies();
 				}
 			}
@@ -148,19 +156,7 @@ Rectangle {
 			StateChangeScript {
 				name: "redeem_begin"
 				script: {
-					var url = "";
-
-					if (startAuthForm.useOther) {
-						url = control.computeAuthorizeURL(
-							startAuthForm.publicKey,
-							startAuthForm.getScopes(),
-							startAuthForm.domain
-						);
-					}
-					else {
-						url = control.computeDefaultAuthorizeURL();
-					}
-
+					var url = control.computeAuthorizeURL();
 					console.log("auth url = " + url)
 					redeemView.authURL = url;
 					redeemView.url = url;
@@ -184,8 +180,8 @@ Rectangle {
 			StateChangeScript {
 				name: "access_tokens"
 				script: {
-					console.log("TODO : access tokens");
-					//control.accessTokens();
+					console.log("Access tokens");
+					control.accessTokens();
 				}
 			}
 		}
