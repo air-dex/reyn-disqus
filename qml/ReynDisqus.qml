@@ -1,4 +1,5 @@
 import QtQuick 2.6
+import QtQuick.Dialogs 1.2
 import RDCore 1.0
 
 // TODO: propose reauth
@@ -16,6 +17,10 @@ Item {
 		anchors.fill: parent
 		visible: false
 		onAuthEnded: reynDisqus.state = "regular"
+		onFatalError: {
+			abortDialog.setAbortMessage(errMsg);
+			reynDisqus.state = "abort";
+		}
 	}
 
 	DisqusPanel {
@@ -23,11 +28,19 @@ Item {
 		anchors.fill: parent
 		visible: false
 		onNeedRefreshToken: reynDisqus.state = "refresh"
+		onFatalError: {
+			abortDialog.setAbortMessage(errMsg);
+			reynDisqus.state = "abort";
+		}
 	}
 
 	RefreshPanel {
 		id: refreshWindow
 		onRefreshEnded: reynDisqus.state = "regular"
+		onFatalError: {
+			abortDialog.setAbortMessage(errMsg);
+			reynDisqus.state = "abort";
+		}
 	}
 
 	SettingsControl {
@@ -35,6 +48,20 @@ Item {
 		onNeedAuth: reynDisqus.state = "auth"
 		onAuthOK: reynDisqus.state = "regular"
 		onNeedRefresh: reynDisqus.state = "refresh"
+	}
+
+	MessageDialog {
+		id: abortDialog
+		visible: false
+		modality: Qt.ApplicationModal
+		title: qsTr("Fatal error")
+		text: qsTr("Reyn Disqus has to quit. Bye!")
+		standardButtons: StandardButton.Close
+		onRejected: Qt.quit();
+
+		function setAbortMessage(msg) {
+			abortDialog.detailedText = msg;
+		}
 	}
 
 	Component.onCompleted:  {
@@ -115,6 +142,17 @@ Item {
 			PropertyChanges {
 				target: disqus
 				visible: true
+			}
+		},
+
+		// Abort
+		State {
+			name: "abort"
+			StateChangeScript {
+				name: "abort"
+				script: {
+					abortDialog.open();
+				}
 			}
 		}
 	]
