@@ -5,7 +5,7 @@ ApplicationWindow {
 	visible: true
 	width: 800
 	height: 640
-	title: qsTr("Hello World")
+	title: qsTr("Reyn Disqus")
 
 	menuBar: MenuBar {
 		Menu {

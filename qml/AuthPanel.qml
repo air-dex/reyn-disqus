@@ -4,7 +4,7 @@ import QtQuick.Dialogs 1.2
 import QtWebView 1.1
 import RDCore 1.0
 
-Rectangle {
+Item {
 	id: authPanel
 
 	// Emitted when an OAuth code cannot be found
