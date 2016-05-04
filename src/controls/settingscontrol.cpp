@@ -1,6 +1,7 @@
 #include "settingscontrol.hpp"
 
 #include <QtQml>
+#include <QDateTime>
 #include "../constants.hpp"
 #include "../utils.hpp"
 #include "../model/settings/rdsettings.hpp"
@@ -31,6 +32,11 @@ void SettingsControl::controlSettings() {
 	else if (rdSettings.getUserSettings().isEmpty()) {
 		// No user account. Create one.
 		emit needAuth();
+	}
+	else if (rdSettings.getUserSettings().getUserTokens().getExpiresIn() <= QDateTime::currentDateTimeUtc()) {
+		// The current access token has expired. Refresh it.
+		// FIXME : laisser comme ça pendant le dev du refresh, corriger la comp ensuite
+		emit needRefresh();
 	}
 	else {
 		// All looks OK. Let's Disqus.

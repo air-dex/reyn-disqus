@@ -16,21 +16,19 @@ class DisqusAPI : public QObject
 {
 	Q_OBJECT
 
+	/*************
+	 * Internals *
+	 *************/
+
 	public:
 		DisqusAPI(QObject * asker, Authenticator authInfos = Authenticator());
 		~DisqusAPI();
-
-		void accessTokens(QUrl redirectURI, QString code);
 
 		void setAsker(QObject * value);
 		void setAuthInfos(const Authenticator & value);
 
 	signals:
 		void sendResult(RequestResult requestResult);
-
-	/*************
-	 * Internals *
-	 *************/
 
 	protected:
 		/// @brief Requester manager
@@ -43,6 +41,15 @@ class DisqusAPI : public QObject
 
 	protected slots:
 		void endRequest(RequestResult requestResult);
+
+
+	/**************************
+	 * API endpoints wrappers *
+	 **************************/
+
+	public:
+		void accessToken(QUrl redirectURI, QString code);
+		void refreshToken(QByteArray refreshToken);
 };
 
 #endif // DISQUSAPI_HPP

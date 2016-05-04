@@ -10,6 +10,8 @@
 #include <QJsonObject>
 #include <QUrl>
 
+#define SIGNAL_END(SIGNAL_NAME) emit SIGNAL_NAME();
+
 AuthControl::AuthControl() :
 	QObject(),
 	disqus(this),
@@ -82,7 +84,7 @@ void AuthControl::accessTokens()
 	disqus.setAuthInfos(auth);
 	connect(&disqus, &DisqusAPI::sendResult,
 			this, &AuthControl::accessTokensObtained);
-	disqus.accessTokens(disqusApp.getTrustedDomain(), oauthCode);
+	disqus.accessToken(disqusApp.getTrustedDomain(), oauthCode);
 }
 
 void AuthControl::accessTokensObtained(RequestResult reqres)
@@ -91,38 +93,11 @@ void AuthControl::accessTokensObtained(RequestResult reqres)
 			   this, &AuthControl::accessTokensObtained);
 
 	switch (reqres.resultType) {
-		case NO_REQUEST_ERROR: {
+		case NO_REQUEST_ERROR:
 			// All is ok. End the process.
-			QJsonObject res = reqres.parsedResult.toJsonObject();
-
-			// Fill user settings
-			UserSettings userSettings;
-
-			userSettings.setDisqusApp(disqusApp);
-			userSettings.setName(res["username"].toString());
-			userSettings.setId(res["user_id"].toInt());
-
-			UserTokens & userTokens = userSettings.getUserTokensRef();
-			userTokens.setAccessToken(res["access_token"].toString().toLatin1());
-			userTokens.setTokenType(res["token_type"].toString());
-			userTokens.setScopes(res["scope"].toString());
-			userTokens.setRefreshToken(res["refresh_token"].toString().toLatin1());
-
-			// Compute new expiresIn
-			QDateTime expiresIn = userTokens.getExpiresIn().addSecs(res["expires_in"].toInt());
-			userTokens.setExpiresIn(expiresIn);
-
-			if (res["state"].isNull()) {
-				userTokens.setState("");
-			}
-			// TODO: else
-
-			// Update settings
-			userSettings.sync();
-
-			// Tell the system it is the end of auth
+			syncTokens(reqres.parsedResult.toJsonObject());
 			emit authEnded();
-		} break;
+			break;
 
 		case API_CALL:
 			// There was a problem while calling the API. Try again.
@@ -144,6 +119,76 @@ void AuthControl::accessTokensObtained(RequestResult reqres)
 			emit fatalError(QString(tr("A problem occured why calling the Disqus API: %1")).arg(reqres.errorMessage));
 			break;
 	}
+}
+
+void AuthControl::refreshTokens()
+{
+	UserSettings settings;
+	disqusApp = settings.getDisqusApp();
+	Authenticator auth(disqusApp.getPublicKey(), disqusApp.getSecretKey());
+	disqus.setAuthInfos(auth);
+	connect(&disqus, &DisqusAPI::sendResult,
+			this, &AuthControl::accessTokensRefreshed);
+	disqus.refreshToken(settings.getUserTokens().getRefreshToken());
+}
+
+void AuthControl::accessTokensRefreshed(RequestResult reqres)
+{
+	disconnect(&disqus, &DisqusAPI::sendResult,
+			   this, &AuthControl::accessTokensRefreshed);
+
+	switch (reqres.resultType) {
+		case NO_REQUEST_ERROR:
+			// All is ok. End the process.
+			syncTokens(reqres.parsedResult.toJsonObject());
+			emit refreshEnded();
+			break;
+
+		case API_CALL:
+			// There was a problem while calling the API. Try again.
+			emit tryAgain(QString(tr("A problem occured why calling the Disqus API: %1")).arg(reqres.errorMessage));
+			break;
+
+		case SERVICE_ERROR:
+			// A service error Try again.
+			emit tryAgain(QString(tr("The Disqus API has returned a service error: %1")).arg(reqres.serviceError.message));
+			break;
+
+		case JSON_PARSING:
+			// Format error message Try again.
+			emit tryAgain(QString(tr("The Disqus API cannot be parsed correctly: %1")).arg(reqres.parsingErrors.message));
+			break;
+
+		default:
+			// Unexpected error. Abort.
+			emit fatalError(QString(tr("A problem occured why calling the Disqus API: %1")).arg(reqres.errorMessage));
+			break;
+	}
+}
+
+void AuthControl::syncTokens(QJsonObject res)
+{
+	// Fill user settings
+	UserSettings userSettings;
+
+	userSettings.setDisqusApp(disqusApp);
+	userSettings.setName(res["username"].toString());
+	userSettings.setId(res["user_id"].toInt());
+
+	UserTokens & userTokens = userSettings.getUserTokensRef();
+	userTokens.setAccessToken(res["access_token"].toString().toLatin1());
+	userTokens.setExpiresIn(QDateTime::currentDateTimeUtc().addSecs(res["expires_in"].toInt()));
+	userTokens.setTokenType(res["token_type"].toString());
+	userTokens.setScopes(res["scope"].toString());
+	userTokens.setRefreshToken(res["refresh_token"].toString().toLatin1());
+
+	if (res["state"].isNull()) {
+		userTokens.setState("");
+	}
+	// TODO: else
+
+	// Update settings
+	userSettings.sync();
 }
 
 // Properties stuff

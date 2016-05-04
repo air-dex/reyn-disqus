@@ -47,12 +47,19 @@ void DisqusAPI::endRequest(RequestResult requestResult)
 	emit sendResult(requestResult);
 }
 
+
 /*******************************
  * Disqus API wrapping methods *
  *******************************/
 
-void DisqusAPI::accessTokens(QUrl redirectURI, QString code)
+void DisqusAPI::accessToken(QUrl redirectURI, QString code)
 {
 	AccessTokensRequester * requester = new AccessTokensRequester(authInfos, redirectURI, code);
+	executeRequest(requester);
+}
+
+void DisqusAPI::refreshToken(QByteArray refreshToken)
+{
+	RefreshTokenRequester * requester = new RefreshTokenRequester(authInfos, refreshToken);
 	executeRequest(requester);
 }

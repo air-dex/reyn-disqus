@@ -6,5 +6,6 @@
         <file>qml/ReynDisqus.qml</file>
         <file>qml/SplashScreen.qml</file>
         <file>qml/StartAuthForm.qml</file>
+        <file>qml/RefreshPanel.qml</file>
     </qresource>
 </RCC>

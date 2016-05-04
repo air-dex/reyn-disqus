@@ -1,6 +1,7 @@
 import QtQuick 2.6
 import RDCore 1.0
 
+// TODO: propose reauth
 Item {
 	id: reynDisqus
 
@@ -21,12 +22,19 @@ Item {
 		id: disqus
 		anchors.fill: parent
 		visible: false
+		onNeedRefreshToken: reynDisqus.state = "refresh"
+	}
+
+	RefreshPanel {
+		id: refreshWindow
+		onRefreshEnded: reynDisqus.state = "regular"
 	}
 
 	SettingsControl {
 		id: settingsControl
 		onNeedAuth: reynDisqus.state = "auth"
 		onAuthOK: reynDisqus.state = "regular"
+		onNeedRefresh: reynDisqus.state = "refresh"
 	}
 
 	Component.onCompleted:  {
@@ -59,6 +67,33 @@ Item {
 				name: "authStart"
 				script: {
 					authScreen.startAuth();
+				}
+			}
+		},
+
+		// Refreshing access tokens
+		State {
+			name: "refresh"
+
+			PropertyChanges {
+				target: splash
+				visible: false
+			}
+
+			PropertyChanges {
+				target: authScreen
+				visible: false
+			}
+
+			PropertyChanges {
+				target: disqus
+				visible: false
+			}
+
+			StateChangeScript {
+				name: "refreshStart"
+				script: {
+					refreshWindow.startRefresh();
 				}
 			}
 		},

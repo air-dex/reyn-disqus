@@ -9,7 +9,9 @@ SOURCES += \
 	src/connection/authenticator.cpp \
 	src/connection/genericrequester.cpp \
 	src/connection/authrequester.cpp \
+	src/connection/requests/oauthaccessrequester.cpp \
 	src/connection/requests/accesstokensrequester.cpp \
+	src/connection/requests/refreshtokenrequester.cpp \
 	src/connection/requestermanager.cpp \
 	src/connection/disqusapi.cpp \
 	src/model/settings/disqusscopes.cpp \
@@ -39,10 +41,12 @@ HEADERS += \
 	src/connection/requestresult.hpp \
 	src/connection/authenticator.hpp \
 	src/connection/genericrequester.hpp \
-	src/connection/requestermanager.hpp \
-	src/connection/authrequester.hpp \
+	src/connection/requests/oauthaccessrequester.hpp \
 	src/connection/requests/accesstokensrequester.hpp \
+	src/connection/requests/refreshtokenrequester.hpp \
+	src/connection/authrequester.hpp \
 	src/connection/requests/alldisqusrequesters.hpp \
+	src/connection/requestermanager.hpp \
 	src/connection/disqusapi.hpp \
 	src/model/settings/disqusscopes.hpp \
 	src/model/settings/disqusscopesset.hpp \

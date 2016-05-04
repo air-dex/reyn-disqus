@@ -1,9 +1,9 @@
 import QtQuick 2.6
 import QtQuick.Controls 1.4
+import QtQuick.Dialogs 1.2
 import QtWebView 1.1
 import RDCore 1.0
 
-// TODO: refresh tokens
 Rectangle {
 	id: authPanel
 
@@ -186,6 +186,5 @@ Rectangle {
 				}
 			}
 		}
-		// TODO: final state, when auth is ended
 	]
 }

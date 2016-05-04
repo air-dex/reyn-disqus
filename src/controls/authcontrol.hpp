@@ -19,12 +19,15 @@ class AuthControl : public QObject
 		Q_INVOKABLE QUrl computeAuthorizeURL();
 		Q_INVOKABLE QString trackOAuthCode(QUrl url);
 		Q_INVOKABLE void accessTokens();
+		Q_INVOKABLE void refreshTokens();
 
 	protected slots:
 		void accessTokensObtained(RequestResult reqres);
+		void accessTokensRefreshed(RequestResult reqres);
 
 	signals:
 		void authEnded();
+		void refreshEnded();
 		void tryAgain(QString error);
 		void fatalError(QString error);
 
@@ -34,6 +37,7 @@ class AuthControl : public QObject
 
 	protected:
 		DisqusAPI disqus;
+		void syncTokens(QJsonObject res);
 
 		// Authentication data
 		Q_PROPERTY(DisqusApp * disqusApp READ getDisqusApp WRITE setDisqusApp NOTIFY disqusAppChanged)

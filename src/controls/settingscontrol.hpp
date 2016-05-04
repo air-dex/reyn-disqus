@@ -14,6 +14,7 @@ class SettingsControl : public QObject
 
 	signals:
 		void needAuth();
+		void needRefresh();
 		void authOK();
 };
 
