@@ -53,6 +53,8 @@ const UserSettings &UserSettings::operator=(const UserSettings & usets)
 
 void UserSettings::copy(const UserSettings & usets)
 {
+	this->name = usets.name;
+	this->userID = usets.userID;
 	setDisqusApp(usets.disqusApp);
 	setUserTokens(usets.userTokens);
 }

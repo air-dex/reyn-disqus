@@ -14,6 +14,7 @@ Item {
 		id: authScreen
 		anchors.fill: parent
 		visible: false
+		onAuthEnded: reynDisqus.state = "regular"
 	}
 
 	DisqusPanel {

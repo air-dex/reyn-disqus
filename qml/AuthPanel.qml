@@ -3,6 +3,7 @@ import QtQuick.Controls 1.4
 import QtWebView 1.1
 import RDCore 1.0
 
+// TODO: refresh tokens
 Rectangle {
 	id: authPanel
 
@@ -12,9 +13,12 @@ Rectangle {
 	// Emitted when a fatal error occurs
 	signal fatalError(string errMsg)
 
+	// Emitted when auth ends
+	signal authEnded
+
 	AuthControl {
 		id: control
-		onAuthEnded: console.log("TODO: Fin de l'auth");
+		onAuthEnded: authPanel.authEnded();
 		onFatalError: authPanel.fatalError(error);
 	}
 
@@ -65,7 +69,6 @@ Rectangle {
 
 					// track URL
 					control.oauthCode = control.trackOAuthCode(loadRequest.url);
-					console.log("OAuth code = " + control.oauthCode);
 
 					if (control.oauthCode == "") {
 						// No code. Tell and restart auth
@@ -157,7 +160,6 @@ Rectangle {
 				name: "redeem_begin"
 				script: {
 					var url = control.computeAuthorizeURL();
-					console.log("auth url = " + url)
 					redeemView.authURL = url;
 					redeemView.url = url;
 				}
@@ -180,7 +182,6 @@ Rectangle {
 			StateChangeScript {
 				name: "access_tokens"
 				script: {
-					console.log("Access tokens");
 					control.accessTokens();
 				}
 			}
