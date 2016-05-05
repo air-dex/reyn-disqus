@@ -29,7 +29,7 @@ DisqusUser::DisqusUser(QJsonObject userObj) :
 	userID(userObj[DisqusUser::USER_ID_JSON_FIELDNAME].toString().toInt()),
 	username(userObj[DisqusUser::USERNAME_JSON_FIELDNAME].toString()),
 	about(userObj[DisqusUser::ABOUT_JSON_FIELDNAME].toString()),
-	url(userObj[DisqusUser::URL_JSON_FIELDNAME]),
+	url(userObj[DisqusUser::URL_JSON_FIELDNAME].toString()),
 	profileURL(userObj[DisqusUser::PROFILE_URL_JSON_FIELDNAME].toString()),
 	signedURL(userObj[DisqusUser::SIGNED_URL_JSON_FIELDNAME].toString()),
 	location(userObj[DisqusUser::LOCATION_JSON_FIELDNAME].toString()),
@@ -75,7 +75,7 @@ void DisqusUser::copy(const DisqusUser & user)
 	this->avatar = user.avatar;
 }
 
-//DECLARE_QML(DisqusUser, "DisqusUser")
+DECLARE_QML(DisqusUser, "DisqusUser")
 
 QString DisqusUser::USER_ID_JSON_FIELDNAME = "id";
 int DisqusUser::getUserID() const
@@ -248,12 +248,12 @@ QString DisqusUser::NUM_FOLLOWING_JSON_FIELDNAME = "numFollowing";
 int DisqusUser::getNumFollowing() const
 {
 	return numFollowing;
-	emit numFollowingChanged();
 }
 
 void DisqusUser::setNumFollowing(int value)
 {
 	numFollowing = value;
+	emit numFollowingChanged();
 }
 
 QString DisqusUser::NUM_FORUMS_FOLLOWING_JSON_FIELDNAME = "numForumsFollowing";
@@ -299,7 +299,7 @@ void DisqusUser::setAvatar(const AvatarImage & value)
 
 void DisqusUser::setAvatar(const AvatarImage * value)
 {
-	if (avatar) {
-		setAvatar(*avatar);
+	if (value) {
+		setAvatar(*value);
 	}
 }

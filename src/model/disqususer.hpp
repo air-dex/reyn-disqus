@@ -39,7 +39,7 @@ class DisqusUser : public QObject
 		QUrl url;
 		static QString URL_JSON_FIELDNAME;
 
-		Q_PROPERTY(QUrl profileURL READ getprofileURL WRITE setprofileURL NOTIFY profileURLChanged)
+		Q_PROPERTY(QUrl profileURL READ getProfileURL WRITE setProfileURL NOTIFY profileURLChanged)
 		QUrl profileURL;
 		static QString PROFILE_URL_JSON_FIELDNAME;
 
@@ -51,7 +51,7 @@ class DisqusUser : public QObject
 		QString location;
 		static QString LOCATION_JSON_FIELDNAME;
 
-		Q_PROPERTY(bool isPrivate READ isPrivateProfile WRITE setPrivateProfile NOTIFY isPrivateChanged)
+		Q_PROPERTY(bool isPrivate READ getIsPrivate WRITE setIsPrivate NOTIFY isPrivateChanged)
 		bool isPrivate;
 		static QString IS_PRIVATE_JSON_FIELDNAME;
 

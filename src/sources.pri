@@ -25,6 +25,7 @@ SOURCES += \
 	src/model/disqususer.cpp \
 	src/controls/settingscontrol.cpp \
 	src/controls/authcontrol.cpp \
+	src/controls/usercontrol.cpp \
 	src/global.cpp \
 	src/main.cpp
 
@@ -62,4 +63,5 @@ HEADERS += \
 	src/model/disqususer.hpp \
 	src/controls/settingscontrol.hpp \
 	src/controls/authcontrol.hpp \
+	src/controls/usercontrol.hpp \
 	src/global.hpp
