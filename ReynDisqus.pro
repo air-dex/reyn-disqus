@@ -33,4 +33,5 @@ DISTFILES += \
 	bin/Desktop/release/.gitkeep \
 	bin/Desktop/profile/.gitkeep \
 	qml.qrc \
+	res.qrc \
 	README.md

@@ -1,4 +1,6 @@
 # res.pri
 
-DISTFILES += res/.gitkeep
-RESOURCES += qml.qrc
+DISTFILES += \
+	res/mapmarker.svg
+
+RESOURCES += res.qrc

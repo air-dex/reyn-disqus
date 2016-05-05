@@ -32,3 +32,8 @@ cd ..\..
 Building doc:
 
 TODO
+
+
+Images:
+
+Map marker by Naomi Atkinson: https://thenounproject.com/term/map-marker/5624/ (CC 3.0 license)
