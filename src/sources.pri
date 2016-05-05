@@ -21,6 +21,8 @@ SOURCES += \
 	src/model/settings/usersettings.cpp \
 	src/model/settings/applicationsettings.cpp \
 	src/model/settings/rdsettings.cpp \
+	src/model/avatarimage.cpp \
+	src/model/disqususer.cpp \
 	src/controls/settingscontrol.cpp \
 	src/controls/authcontrol.cpp \
 	src/global.cpp \
@@ -56,6 +58,8 @@ HEADERS += \
 	src/model/settings/usersettings.hpp \
 	src/model/settings/applicationsettings.hpp \
 	src/model/settings/rdsettings.hpp \
+	src/model/avatarimage.hpp \
+	src/model/disqususer.hpp \
 	src/controls/settingscontrol.hpp \
 	src/controls/authcontrol.hpp \
 	src/global.hpp

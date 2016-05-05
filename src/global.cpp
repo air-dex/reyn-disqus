@@ -5,6 +5,8 @@
 #include "controls/authcontrol.hpp"
 #include "model/settings/disqusscopes.hpp"
 #include "model/settings/disqusapp.hpp"
+#include "model/disqususer.hpp"
+#include "model/avatarimage.hpp"
 
 void ReynDisqus::declareQML()
 {
@@ -13,6 +15,8 @@ void ReynDisqus::declareQML()
 	AuthControl::declareQML();
 	DisqusScopes::declareQML();
 	DisqusApp::declareQML();
+	DisqusUser::declareQML();
+	AvatarImage::declareQML();
 }
 
 void ReynDisqus::afterReynDisqus()
