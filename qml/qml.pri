@@ -15,7 +15,11 @@ DISTFILES += \
 	qml/UserView.qml \
 	qml/NotificationsTab.qml \
 	qml/ForumsTab.qml \
-	qml/UserPostsTab.qml
+	qml/UserPostsTab.qml \
+	qml/Avatar.qml \
+	qml/SquareImage.qml
+
+RESOURCES += qml.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =

@@ -14,5 +14,7 @@
         <file>qml/ForumsTab.qml</file>
         <file>qml/NotificationsTab.qml</file>
         <file>qml/UserPostsTab.qml</file>
+        <file>qml/Avatar.qml</file>
+        <file>qml/SquareImage.qml</file>
     </qresource>
 </RCC>

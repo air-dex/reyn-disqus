@@ -34,6 +34,7 @@ Building doc:
 TODO
 
 
-Images:
+Images (CC 3.0 license):
 
-Map marker by Naomi Atkinson: https://thenounproject.com/term/map-marker/5624/ (CC 3.0 license)
+"Map Marker" by Naomi Atkinson: https://thenounproject.com/term/map-marker/5624
+"Clock" by Xela Ub: https://thenounproject.com/term/clock/198541

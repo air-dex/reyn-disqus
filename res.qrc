@@ -1,5 +1,6 @@
 <RCC>
-	<qresource prefix="/">
-		<file>res/mapmarker.svg</file>
-	</qresource>
+    <qresource prefix="/">
+        <file>res/mapmarker.svg</file>
+        <file>res/clock.svg</file>
+    </qresource>
 </RCC>
