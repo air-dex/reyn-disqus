@@ -7,5 +7,12 @@
         <file>qml/SplashScreen.qml</file>
         <file>qml/StartAuthForm.qml</file>
         <file>qml/RefreshPanel.qml</file>
+        <file>qml/TimelineTab.qml</file>
+        <file>qml/DisqusTab.qml</file>
+        <file>qml/UserTab.qml</file>
+        <file>qml/UserView.qml</file>
+        <file>qml/ForumsTab.qml</file>
+        <file>qml/NotificationsTab.qml</file>
+        <file>qml/UserPostsTab.qml</file>
     </qresource>
 </RCC>

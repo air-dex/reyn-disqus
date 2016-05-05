@@ -38,8 +38,14 @@ void SettingsControl::controlSettings() {
 		// FIXME : laisser comme ça pendant le dev du refresh, corriger la comp ensuite
 		emit needRefresh();
 	}
+	// TODO: control user?
 	else {
 		// All looks OK. Let's Disqus.
 		emit authOK();
 	}
+}
+
+int SettingsControl::getMyID()
+{
+	return UserSettings().getId();
 }

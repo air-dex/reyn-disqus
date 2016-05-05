@@ -1,56 +1,59 @@
 import QtQuick 2.6
 import QtQuick.Controls 1.4
+import RDCore 1.0
 
 TabView {
 	id: disqusPanel
-	anchors.fill: parent
-	tabsVisible: true
 
-	Tab {
+	readonly property var tabsList: [timelineTab, notificationsTab, forumsTab, myPostsTab, accountTab]
+
+	TimelineTab {
 		id: timelineTab
-		title: qsTr("Timeline")
-
-		Text {
-			text: "TODO: Timeline tab."
-		}
 	}
 
-	Tab {
+	NotificationsTab {
 		id: notificationsTab
-		title: qsTr("Notifications")
-
-		Text {
-			text: "TODO: Notifications tab."
-		}
 	}
 
-	Tab {
+	ForumsTab {
 		id: forumsTab
-		title: qsTr("Forums")
-
-		Text {
-			text: "TODO: Forums tab."
-		}
 	}
 
-	Tab {
-		id: myMessagesTab
-		title: qsTr("My messages")
-
-		Text {
-			text: "TODO: My messages tab."
-		}
+	UserPostsTab {
+		id: myPostsTab
 	}
 
-	Tab {
+	// My account. "Me" is the authenticated user.
+	UserTab {
 		id: accountTab
 		title: qsTr("My account")
+	}
 
-		Text {
-			text: "TODO: My account tab."
+	SettingsControl { id: settingsControl }
+
+	Component.onCompleted: {
+		// Connecting tabs for refreshing tokens and fatal errors
+		for (var i in disqusPanel.tabsList) {
+			disqusPanel.connectTab(disqusPanel.tabsList[i]);
 		}
 	}
 
-	signal needRefreshToken;
+	function connectTab(tabID) {
+		tabID.needRefresh.connect(disqusPanel.refreshTokens);
+		tabID.fatalError.connect(disqusPanel.fatalError);
+	}
+
+	function allowToLoad() {
+		//timelineTab.state = "can_load";
+		// TODO: allow other tabs to load.
+
+		// Load my account
+		accountTab.userID = settingsControl.getMyID();
+	}
+
+	function refreshTokens() {
+		// TODO: refreshTokens in DisqusPanel
+	}
+
 	signal fatalError(string errMsg)
 }

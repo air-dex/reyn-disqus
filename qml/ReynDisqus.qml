@@ -27,7 +27,6 @@ Item {
 		id: disqus
 		anchors.fill: parent
 		visible: false
-		onNeedRefreshToken: reynDisqus.state = "refresh"
 		onFatalError: {
 			abortDialog.setAbortMessage(errMsg);
 			reynDisqus.state = "abort";
@@ -142,6 +141,13 @@ Item {
 			PropertyChanges {
 				target: disqus
 				visible: true
+			}
+
+			StateChangeScript {
+				name: "regular"
+				script: {
+					disqus.allowToLoad();
+				}
 			}
 		},
 

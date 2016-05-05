@@ -10,7 +10,12 @@ class SettingsControl : public QObject
 	public:
 		SettingsControl();
 		static void declareQML();
+
+		// Controls settings at launch
 		Q_INVOKABLE void controlSettings();
+
+		// Retrieve my ID (me = authenticated user)
+		Q_INVOKABLE int getMyID();
 
 	signals:
 		void needAuth();
