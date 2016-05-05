@@ -8,6 +8,7 @@ DisqusUser::DisqusUser() :
 	QObject(),
 	userID(0),
 	username(""),
+	name(""),
 	about(""),
 	url(),
 	profileURL(),
@@ -28,6 +29,7 @@ DisqusUser::DisqusUser(QJsonObject userObj) :
 	QObject(),
 	userID(userObj[DisqusUser::USER_ID_JSON_FIELDNAME].toString().toInt()),
 	username(userObj[DisqusUser::USERNAME_JSON_FIELDNAME].toString()),
+	name(userObj[DisqusUser::NAME_JSON_FIELDNAME].toString()),
 	about(userObj[DisqusUser::ABOUT_JSON_FIELDNAME].toString()),
 	url(userObj[DisqusUser::URL_JSON_FIELDNAME].toString()),
 	profileURL(userObj[DisqusUser::PROFILE_URL_JSON_FIELDNAME].toString()),
@@ -59,6 +61,7 @@ void DisqusUser::copy(const DisqusUser & user)
 {
 	this->userID = user.userID;
 	this->username = user.username;
+	this->name = user.name;
 	this->about = user.about;
 	this->url = user.url;
 	this->profileURL = user.profileURL;
@@ -113,6 +116,17 @@ void DisqusUser::setUsername(const QString & value)
 {
 	username = value;
 	emit usernameChanged();
+}
+
+QString DisqusUser::NAME_JSON_FIELDNAME = "name";
+QString DisqusUser::getName() const
+{
+	return name;
+}
+void DisqusUser::setName(const QString & value)
+{
+	name = value;
+	emit nameChanged();
 }
 
 QString DisqusUser::ABOUT_JSON_FIELDNAME = "about";

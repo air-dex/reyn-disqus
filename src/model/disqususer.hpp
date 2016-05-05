@@ -31,6 +31,10 @@ class DisqusUser : public QObject
 		QString username;
 		static QString USERNAME_JSON_FIELDNAME;
 
+		Q_PROPERTY(QString name READ getName WRITE setName NOTIFY nameChanged)
+		QString name;
+		static QString NAME_JSON_FIELDNAME;
+
 		Q_PROPERTY(QString about READ getAbout WRITE setAbout NOTIFY aboutChanged)
 		QString about;
 		static QString ABOUT_JSON_FIELDNAME;
@@ -97,6 +101,9 @@ class DisqusUser : public QObject
 		QString getUsername() const;
 		void setUsername(const QString & value);
 
+		QString getName() const;
+		void setName(const QString & value);
+
 		QString getAbout() const;
 		void setAbout(const QString & value);
 
@@ -147,6 +154,7 @@ class DisqusUser : public QObject
 		// NOTIFY signals
 		void userIDChanged();
 		void usernameChanged();
+		void nameChanged();
 		void aboutChanged();
 		void urlChanged();
 		void profileURLChanged();
