@@ -171,6 +171,6 @@ ResponseInfos GenericRequester::treatServiceErrors(QJsonObject parsedResults, bo
 	ResponseInfos serviceError;
 	serviceError.code = parsedResults["code"].toInt();
 	serviceError.message = parsedResults["error"].toString();
-	hasServiceError = (serviceError.code == 0);
+	hasServiceError = (serviceError.code != 0);
 	return serviceError;
 }

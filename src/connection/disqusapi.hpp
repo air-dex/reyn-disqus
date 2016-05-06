@@ -50,6 +50,7 @@ class DisqusAPI : public QObject
 	public:
 		void accessToken(QUrl redirectURI, QString code);
 		void refreshToken(QByteArray refreshToken);
+		void userDetails(int userID);
 };
 
 #endif // DISQUSAPI_HPP

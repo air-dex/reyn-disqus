@@ -5,10 +5,7 @@ DisqusTab {
 	id: timelineTab
 	title: qsTr("Threads timeline")
 
-	property string s: henri.text
-
 	Text {
-		id: henri
 		text: "TODO: Timeline tab."
 	}
 

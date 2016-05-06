@@ -54,12 +54,15 @@ void DisqusAPI::endRequest(RequestResult requestResult)
 
 void DisqusAPI::accessToken(QUrl redirectURI, QString code)
 {
-	AccessTokensRequester * requester = new AccessTokensRequester(authInfos, redirectURI, code);
-	executeRequest(requester);
+	executeRequest(new AccessTokensRequester(authInfos, redirectURI, code));
 }
 
 void DisqusAPI::refreshToken(QByteArray refreshToken)
 {
-	RefreshTokenRequester * requester = new RefreshTokenRequester(authInfos, refreshToken);
-	executeRequest(requester);
+	executeRequest(new RefreshTokenRequester(authInfos, refreshToken));
+}
+
+void DisqusAPI::userDetails(int userID)
+{
+	executeRequest(new UsersDetailsRequester(authInfos, userID));
 }

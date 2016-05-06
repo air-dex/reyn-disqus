@@ -40,6 +40,7 @@ const QString ReynDisqus::APP_NAME = "Reyn Disqus";
 // For UI purposes
 const int ReynDisqus::DEFAULT_MARGIN = 5;
 const QColor ReynDisqus::ERROR_COLOR = QColor::fromRgb(0xff, 0x00, 0x00);
+const QColor ReynDisqus::GRAY = QColor::fromRgb(0xdc, 0xdc, 0xdc);	// (Serge?) Gainsboro
 
 // Font sizes
 const int ReynDisqus::XS_FONT_SIZE = 8;
@@ -132,4 +133,10 @@ int Constants::lFontSize()
 int Constants::xlFontSize()
 {
 	return ReynDisqus::XL_FONT_SIZE;
+}
+
+
+QColor Constants::gray()
+{
+	return ReynDisqus::GRAY;
 }

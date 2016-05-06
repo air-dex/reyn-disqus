@@ -44,6 +44,7 @@ namespace ReynDisqus {
 	// For UI purposes
 	extern const int DEFAULT_MARGIN;
 	extern const QColor ERROR_COLOR;
+	extern const QColor GRAY;
 
 	// Font sizes
 	extern const int XS_FONT_SIZE;
@@ -83,8 +84,9 @@ class Constants : public QObject
 		// Default margin
 		Q_PROPERTY(int margin READ getMargin NOTIFY marginChanged)
 
-		// Red color
+		// Error color
 		Q_PROPERTY(QColor errorColor READ getErrorColor NOTIFY errorColorChanged)
+		Q_PROPERTY(QColor gray READ gray NOTIFY grayChanged)
 
 		// Font sizes
 		Q_PROPERTY(int xsFontSize READ xsFontSize NOTIFY xsFontSizeChanged)
@@ -107,6 +109,7 @@ class Constants : public QObject
 		static int mFontSize();
 		static int lFontSize();
 		static int xlFontSize();
+		static QColor gray();
 
 	signals:
 		// Useless property signals
@@ -122,6 +125,7 @@ class Constants : public QObject
 		void mFontSizeChanged();
 		void lFontSizeChanged();
 		void xlFontSizeChanged();
+		void grayChanged();
 };
 
 #endif // CONSTANTS_HPP

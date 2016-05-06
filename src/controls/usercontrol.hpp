@@ -4,6 +4,7 @@
 #include <QObject>
 #include "../model/disqususer.hpp"
 #include "../connection/disqusapi.hpp"
+#include "../connection/requestresult.hpp"
 
 class UserControl : public QObject
 {
@@ -12,6 +13,10 @@ class UserControl : public QObject
 	public:
 		UserControl();
 		static void declareQML();
+		Q_INVOKABLE void loadUserDetails(int userID);
+
+	protected slots:
+		void userDetailsLoaded(RequestResult reqres);
 
 	protected:
 		DisqusAPI disqus;
@@ -22,9 +27,13 @@ class UserControl : public QObject
 		DisqusUser * getDisqusUser();
 		void setDisqusUser(const DisqusUser & value);
 		void setDisqusUser(const DisqusUser * value);
+		void setDisqusUser(const QJsonObject & value);
 
 	signals:
 		void disqusUserChanged();
+		void fatalError(QString error);
+		void needRefresh();
+		void loadUsersDetailsFailed(QString infos);
 };
 
 #endif // USERCONTROL_HPP

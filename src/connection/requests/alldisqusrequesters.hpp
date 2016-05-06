@@ -3,5 +3,6 @@
 
 #include "accesstokensrequester.hpp"
 #include "refreshtokenrequester.hpp"
+#include "usersdetailsrequester.hpp"
 
 #endif // ALLDISQUSREQUESTERS_HPP

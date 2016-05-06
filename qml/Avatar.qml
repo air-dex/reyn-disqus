@@ -4,9 +4,8 @@ import RDCore 1.0
 SquareImage {
 	id: avatar
 	width: height
-	source: imageInfos.permalink
+	source: disqusAvatar.permalink
 
 	// Disqus image
-	property alias disqusAvatar: imageInfos
-	AvatarImage { id: imageInfos }
+	property AvatarImage disqusAvatar
 }
