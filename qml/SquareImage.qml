@@ -7,6 +7,5 @@ Image {
 	width: side
 	height: side
 
-	asynchronous: true
 	fillMode: Image.PreserveAspectFit
 }

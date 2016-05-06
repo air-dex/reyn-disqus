@@ -201,7 +201,7 @@ void DisqusUser::setIsPrivate(bool value)
 	emit isPrivateChanged();
 }
 
-QString DisqusUser::NUM_LIKES_RECEIVED_JSON_FIELDNAME = "numLikesReceieved";
+QString DisqusUser::NUM_LIKES_RECEIVED_JSON_FIELDNAME = "numLikesReceived";
 int DisqusUser::getNumLikesReceieved() const
 {
 	return numLikesReceieved;

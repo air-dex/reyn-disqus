@@ -2,7 +2,6 @@ import QtQuick 2.6
 import QtQuick.Dialogs 1.2
 import RDCore 1.0
 
-// TODO: propose reauth
 Item {
 	id: reynDisqus
 

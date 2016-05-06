@@ -2,5 +2,9 @@
     <qresource prefix="/">
         <file>res/mapmarker.svg</file>
         <file>res/clock.svg</file>
+        <file>res/desktopbrowser.svg</file>
+        <file>res/reload.svg</file>
+        <file>res/like.svg</file>
+        <file>res/thumbsdown.svg</file>
     </qresource>
 </RCC>

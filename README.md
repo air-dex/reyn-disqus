@@ -38,3 +38,7 @@ Images (CC 3.0 license):
 
 "Map Marker" by Naomi Atkinson: https://thenounproject.com/term/map-marker/5624
 "Clock" by James Rainsford: https://thenounproject.com/term/clock/17709
+"Desktop Browser" by Eightemdi: https://thenounproject.com/term/desktop-browser/353618
+"Reload" by Michael Zenaty: https://thenounproject.com/term/reload/11800
+"Like" by Rhys de Dezsery: https://thenounproject.com/term/like/148798
+"Thums Down" by Rhys de Dezsery: https://thenounproject.com/term/thumbs-down/102572

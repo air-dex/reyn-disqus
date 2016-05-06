@@ -165,12 +165,11 @@ void GenericRequester::treatResults(NetworkResponse netResponse) {
 	emit requestEnded(requestResult);
 }
 
-// TODO: improve when it's time to do it.
 ResponseInfos GenericRequester::treatServiceErrors(QJsonObject parsedResults, bool & hasServiceError)
 {
 	ResponseInfos serviceError;
 	serviceError.code = parsedResults["code"].toInt();
-	serviceError.message = parsedResults["error"].toString();
+	serviceError.message = parsedResults["response"].toString();
 	hasServiceError = (serviceError.code != 0);
 	return serviceError;
 }

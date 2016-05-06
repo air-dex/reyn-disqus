@@ -8,9 +8,10 @@ Item {
 
 	property int userID
 	property alias user: control.disqusUser
+	readonly property int bigMargin: 2 * constants.margin
 
 	readonly property var leftSide: avatar.left
-	readonly property var rightSide: name.right
+	readonly property var rightSide: reloadButton.right
 
 	Constants { id: constants }
 
@@ -32,16 +33,17 @@ Item {
 	// Widgets for the view.
 
 	//User's profile picture
-	Avatar {
+	SquareImage {
 		id: avatar
-		disqusAvatar: user.avatar
-		side: name.height + constants.margin + username.height
+		source: user.avatar.permalink
+		side: name.height + 2*bigMargin + username.height + website.height
 
 		anchors {
 			top: parent.top
 			topMargin: constants.margin
 			left: parent.left
 			leftMargin: constants.margin
+			bottom: website.bottom
 		}
 	}
 
@@ -53,16 +55,32 @@ Item {
 
 		anchors {
 			top: avatar.top
-			left: avatar.left
-			leftMargin: constants.margin
-			right: parent.right
-			rightMargin: constants.margin
+			left: avatar.right
+			leftMargin: bigMargin
+			right: reloadButton.left
+			rightMargin: bigMargin
 		}
 
 		font {
 			bold: true
-			pointSize: constants.lFontSize
+			pointSize: constants.xlFontSize
 		}
+	}
+
+	// Reload button
+	Button {
+		id: reloadButton
+		iconSource: "qrc:/res/reload.svg"
+		width: name.height
+
+		anchors {
+			top: name.top
+			right: parent.right
+			rightMargin: constants.margin
+			bottom: name.bottom
+		}
+
+		onClicked: control.loadUserDetails(userView.userID);
 	}
 
 	// User username
@@ -73,15 +91,49 @@ Item {
 		elide: Text.ElideRight
 
 		font {
-			pointSize: constants.sFontSize
+			pointSize: constants.mFontSize
 		}
 
 		anchors {
 			top: name.bottom
-			topMargin: constants.margin
+			topMargin: bigMargin
 			left: name.left
-			right: name.right
+			right: rightSide
 		}
+	}
+
+	// User Website
+	SquareImage {
+		id: websiteIcon
+		visible: website.visible
+		side: website.height
+		source: "qrc:/res/desktopbrowser.svg"
+
+		anchors {
+			top: username.bottom
+			topMargin: bigMargin
+			left: name.left
+		}
+	}
+
+	Text {
+		id: website
+		text: '<a href="%1">%1</a>'.arg(user.url)
+		textFormat: Text.RichText
+		elide: Text.ElideRight
+
+		font {
+			pointSize: constants.mFontSize
+		}
+
+		anchors {
+			top: websiteIcon.top
+			left: websiteIcon.right
+			leftMargin: bigMargin
+			right: rightSide
+		}
+
+		onLinkActivated: Qt.openUrlExternally(link);
 	}
 
 	// About the user
@@ -90,16 +142,17 @@ Item {
 		text: user.about
 		textFormat: Text.RichText
 		wrapMode: Text.Wrap
+		visible: user.about !== ""
 
 		font {
 			pointSize: constants.mFontSize
 		}
 
 		anchors {
-			top: avatar.bottom
-			topMargin: constants.margin
-			left: avatar.left
-			right: name.right
+			top: website.bottom
+			topMargin: bigMargin
+			left: leftSide
+			right: rightSide
 		}
 	}
 
@@ -108,18 +161,20 @@ Item {
 		id: mapMarker
 		source: "qrc:/res/mapmarker.svg"
 		side: location.height
+		visible: location.visible
 
 		anchors {
 			top: description.bottom
-			topMargin: constants.margin
-			left: avatar.left
+			topMargin: bigMargin
+			left: leftSide
 		}
 	}
 
-	Text {
+	Label {
 		id: location
 		text: user.location
 		wrapMode: Text.Wrap
+		visible: user.location !== ""
 
 		font {
 			pointSize: constants.mFontSize
@@ -128,8 +183,8 @@ Item {
 		anchors {
 			top: mapMarker.top
 			left: mapMarker.right
-			leftMargin: constants.margin
-			right: name.right
+			leftMargin: bigMargin
+			right: rightSide
 		}
 	}
 
@@ -141,8 +196,8 @@ Item {
 
 		anchors {
 			top: mapMarker.bottom
-			topMargin: constants.margin
-			left: avatar.left
+			topMargin: bigMargin
+			left: leftSide
 		}
 	}
 
@@ -157,20 +212,33 @@ Item {
 
 		anchors {
 			top: clock.top
-			left: clock.left
-			leftMargin: constants.margin
-			right: name.right
+			left: clock.right
+			leftMargin: bigMargin
+			right: rightSide
 		}
+	}
+
+	Button {
+		id: viewOnDisqus
+		text: qsTr("View on Disqus")
+
+		anchors {
+			top: joinedAt.bottom
+			topMargin: bigMargin
+			left: leftSide
+		}
+
+		onClicked: Qt.openUrlExternally(user.profileURL)
 	}
 
 	TabView {
 		id: detailsView
 
 		anchors {
-			top: joinedAt.bottom
+			top: viewOnDisqus.bottom
 			topMargin: constants.margin
-			left: avatar.left
-			right: name.right
+			left: leftSide
+			right: rightSide
 			bottom: parent.bottom
 			bottomMargin: constants.margin
 		}

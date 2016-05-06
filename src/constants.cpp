@@ -40,14 +40,14 @@ const QString ReynDisqus::APP_NAME = "Reyn Disqus";
 // For UI purposes
 const int ReynDisqus::DEFAULT_MARGIN = 5;
 const QColor ReynDisqus::ERROR_COLOR = QColor::fromRgb(0xff, 0x00, 0x00);
-const QColor ReynDisqus::GRAY = QColor::fromRgb(0xdc, 0xdc, 0xdc);	// (Serge?) Gainsboro
+const QColor ReynDisqus::GRAY = QColor::fromRgb(0x8b, 0x89, 0x89);
 
 // Font sizes
-const int ReynDisqus::XS_FONT_SIZE = 8;
-const int ReynDisqus::S_FONT_SIZE = 10;
-const int ReynDisqus::M_FONT_SIZE = 12;
-const int ReynDisqus::L_FONT_SIZE = 14;
-const int ReynDisqus::XL_FONT_SIZE = 16;
+const int ReynDisqus::XS_FONT_SIZE = 7;
+const int ReynDisqus::S_FONT_SIZE = 9;
+const int ReynDisqus::M_FONT_SIZE = 11;
+const int ReynDisqus::L_FONT_SIZE = 16;
+const int ReynDisqus::XL_FONT_SIZE = 20;
 
 
 // App constants that should be exposed to QML.
