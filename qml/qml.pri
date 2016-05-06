@@ -16,7 +16,6 @@ DISTFILES += \
 	qml/NotificationsTab.qml \
 	qml/ForumsTab.qml \
 	qml/UserPostsTab.qml \
-	qml/Avatar.qml \
 	qml/SquareImage.qml
 
 RESOURCES += qml.qrc
