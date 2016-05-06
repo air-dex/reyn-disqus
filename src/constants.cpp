@@ -28,12 +28,6 @@ const QString ReynDisqus::refreshTokenSettingsKey = "refresh_token";
 const QString ReynDisqus::usernameSettingsKey = "name";
 const QString ReynDisqus::idSettingsKey = "id";
 
-// API URLs
-const QString ReynDisqus::FAKE_URL = "";
-const QString ReynDisqus::disqusAPIBaseURLPattern = "https://disqus.com/api/3.0/%1";
-const QString ReynDisqus::disqusAPIOAuthAuthorizeURL = "https://disqus.com/api/oauth/2.0/authorize/";
-const QString ReynDisqus::disqusAPIOAuthAccessTokensURL = "https://disqus.com/api/oauth/2.0/access_token/";
-
 // Version
 const int ReynDisqus::MAJOR_VERSION = 1;
 const int ReynDisqus::MINOR_VERSION = 0;

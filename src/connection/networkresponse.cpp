@@ -1,5 +1,7 @@
 #include "networkresponse.hpp"
 
+#include "uris.hpp"
+
 NetworkResponse::NetworkResponse(HTTPCode httpCode,
 								 QString httpReason,
 								 QByteArray response,

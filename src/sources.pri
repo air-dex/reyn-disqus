@@ -3,6 +3,7 @@
 SOURCES += \
 	src/constants.cpp \
 	src/utils.cpp \
+	src/connection/uris.cpp \
 	src/connection/networkresponse.cpp \
 	src/connection/communicator.cpp \
 	src/connection/communicatormanager.cpp \
@@ -12,6 +13,7 @@ SOURCES += \
 	src/connection/requests/oauthaccessrequester.cpp \
 	src/connection/requests/accesstokensrequester.cpp \
 	src/connection/requests/refreshtokenrequester.cpp \
+	src/connection/requests/usersdetailsrequester.cpp \
 	src/connection/requestermanager.cpp \
 	src/connection/disqusapi.cpp \
 	src/model/settings/disqusscopes.cpp \
@@ -32,6 +34,7 @@ SOURCES += \
 HEADERS += \
 	src/constants.hpp \
 	src/utils.hpp \
+	src/connection/uris.hpp \
 	src/connection/httprequesttype.hpp \
 	src/connection/httpmaps.hpp \
 	src/connection/httpcode.hpp \
@@ -44,10 +47,11 @@ HEADERS += \
 	src/connection/requestresult.hpp \
 	src/connection/authenticator.hpp \
 	src/connection/genericrequester.hpp \
+	src/connection/authrequester.hpp \
 	src/connection/requests/oauthaccessrequester.hpp \
 	src/connection/requests/accesstokensrequester.hpp \
 	src/connection/requests/refreshtokenrequester.hpp \
-	src/connection/authrequester.hpp \
+	src/connection/requests/usersdetailsrequester.hpp \
 	src/connection/requests/alldisqusrequesters.hpp \
 	src/connection/requestermanager.hpp \
 	src/connection/disqusapi.hpp \

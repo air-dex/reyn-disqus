@@ -1,9 +1,9 @@
 #include "authenticator.hpp"
 
 Authenticator::Authenticator(QByteArray appPublicKey, QByteArray appSecretKey, QByteArray userAccessToken) :
-	appPublicKey(appPublicKey),
-	appSecretKey(appSecretKey),
-	userAccessToken(userAccessToken)
+	apiKey(appPublicKey),
+	apiSecret(appSecretKey),
+	accessToken(userAccessToken)
 {}
 
 Authenticator::Authenticator(const Authenticator & authInfos)
@@ -19,37 +19,37 @@ const Authenticator &Authenticator::operator=(const Authenticator & authInfos)
 
 void Authenticator::copy(const Authenticator & authInfos)
 {
-	this->appPublicKey = authInfos.appPublicKey;
-	this->appSecretKey = authInfos.appSecretKey;
-	this->userAccessToken = authInfos.userAccessToken;
+	this->apiKey = authInfos.apiKey;
+	this->apiSecret = authInfos.apiSecret;
+	this->accessToken = authInfos.accessToken;
 }
 
-QByteArray Authenticator::getUserAccessToken() const
+QByteArray Authenticator::getAccessToken() const
 {
-	return userAccessToken;
+	return accessToken;
 }
 
-void Authenticator::setUserAccessToken(const QByteArray & value)
+void Authenticator::setAccessToken(const QByteArray & value)
 {
-	userAccessToken = value;
+	accessToken = value;
 }
 
-QByteArray Authenticator::getAppSecretKey() const
+QByteArray Authenticator::getAPISecret() const
 {
-	return appSecretKey;
+	return apiSecret;
 }
 
-void Authenticator::setAppSecretKey(const QByteArray & value)
+void Authenticator::setAPISecret(const QByteArray & value)
 {
-	appSecretKey = value;
+	apiSecret = value;
 }
 
-QByteArray Authenticator::getAppPublicKey() const
+QByteArray Authenticator::getAPIKey() const
 {
-	return appPublicKey;
+	return apiKey;
 }
 
-void Authenticator::setAppPublicKey(const QByteArray & value)
+void Authenticator::setAPIKey(const QByteArray & value)
 {
-	appPublicKey = value;
+	apiKey = value;
 }

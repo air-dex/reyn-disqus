@@ -8,6 +8,9 @@ ArgsMap AuthRequester::buildGETParameters()
 {
 	ArgsMap getParameters = GenericRequester::buildGETParameters();
 
-	// TODO : add more
+	getParameters.insert("api_key", authInfos.getAPIKey());
+	getParameters.insert("api_secret", authInfos.getAPISecret());
+	getParameters.insert("access_token", authInfos.getAccessToken());
+
 	return getParameters;
 }

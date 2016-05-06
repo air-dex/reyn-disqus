@@ -101,6 +101,15 @@ bool UserSettings::isEmpty() const
 	return name == "";
 }
 
+Authenticator UserSettings::getAuthenticator() const
+{
+	return Authenticator(
+		disqusApp.getPublicKey(),
+		disqusApp.getSecretKey(),
+		userTokens.getAccessToken()
+	);
+}
+
 DisqusApp UserSettings::getDisqusApp() const
 {
 	return disqusApp;

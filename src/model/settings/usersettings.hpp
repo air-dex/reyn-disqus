@@ -5,6 +5,7 @@
 #include "disqusapp.hpp"
 #include "isettings.hpp"
 #include "usertokens.hpp"
+#include "../../connection/authenticator.hpp"
 
 class UserSettings : public QObject, public ISettings
 {
@@ -23,6 +24,7 @@ class UserSettings : public QObject, public ISettings
 		virtual void sync();
 		bool isDefaultDisqusApp() const;
 		bool isEmpty() const;
+		Authenticator getAuthenticator() const;
 
 		// Getters and setters
 		QString getName() const;

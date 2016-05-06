@@ -6,6 +6,7 @@
 #include "../model/settings/usersettings.hpp"
 #include "../model/settings/usertokens.hpp"
 #include "../connection/authenticator.hpp"
+#include "../connection/uris.hpp"
 #include <QtQml>
 #include <QJsonObject>
 #include <QUrl>

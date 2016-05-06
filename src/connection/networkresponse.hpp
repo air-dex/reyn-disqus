@@ -6,7 +6,7 @@
 #include <QNetworkReply>
 #include "httpcode.hpp"
 #include "responseinfos.hpp"
-#include "../constants.hpp"
+#include "uris.hpp"
 
 class NetworkResponse
 {

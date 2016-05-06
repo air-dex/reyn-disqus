@@ -32,12 +32,6 @@ namespace ReynDisqus {
 	extern const QString usernameSettingsKey;
 	extern const QString idSettingsKey;
 
-	// API URLs
-	extern const QString FAKE_URL;
-	extern const QString disqusAPIBaseURLPattern;
-	extern const QString disqusAPIOAuthAuthorizeURL;
-	extern const QString disqusAPIOAuthAccessTokensURL;
-
 	// Version
 	extern const int MAJOR_VERSION;
 	extern const int MINOR_VERSION;

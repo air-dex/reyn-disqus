@@ -1,7 +1,7 @@
 #include "oauthaccessrequester.hpp"
 
 #include <QJsonObject>
-#include "../../constants.hpp"
+#include "../uris.hpp"
 
 OAuthAccessRequester::OAuthAccessRequester(Authenticator authInfos) :
 	GenericRequester(authInfos, HTTPRequestType::POST, ReynDisqus::disqusAPIOAuthAccessTokensURL)

@@ -6,10 +6,7 @@
 class AuthRequester : public GenericRequester
 {
 	public:
-		AuthRequester(
-				Authenticator authInfos,
-				HTTPRequestType reqtype,
-				QString uri);
+		AuthRequester(Authenticator authInfos, HTTPRequestType reqtype, QString uri);
 
 	protected:
 		/// @fn virtual ArgsMap buildGETParameters();
