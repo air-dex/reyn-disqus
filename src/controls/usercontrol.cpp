@@ -15,15 +15,15 @@ DECLARE_QML(UserControl, "UserControl")
 void UserControl::loadUserDetails(int userID)
 {
 	connect(&disqus, &DisqusAPI::sendResult,
-			this, &UserControl::userDetailsLoaded);
+			this, &UserControl::userDetailsRetrieved);
 
 	disqus.userDetails(userID);
 }
 
-void UserControl::userDetailsLoaded(RequestResult reqres)
+void UserControl::userDetailsRetrieved(RequestResult reqres)
 {
 	disconnect(&disqus, &DisqusAPI::sendResult,
-			   this, &UserControl::userDetailsLoaded);
+			   this, &UserControl::userDetailsRetrieved);
 
 	switch (reqres.resultType) {
 		case NO_REQUEST_ERROR: {

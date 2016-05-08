@@ -16,7 +16,7 @@ class UserControl : public QObject
 		Q_INVOKABLE void loadUserDetails(int userID);
 
 	protected slots:
-		void userDetailsLoaded(RequestResult reqres);
+		void userDetailsRetrieved(RequestResult reqres);
 
 	protected:
 		DisqusAPI disqus;
@@ -30,9 +30,15 @@ class UserControl : public QObject
 		void setDisqusUser(const QJsonObject & value);
 
 	signals:
+		// NOTIFY property
 		void disqusUserChanged();
+
+		// General error cases
 		void fatalError(QString error);
 		void needRefresh();
+
+		// Loading user details
+		void userDetailsLoaded();
 		void loadUsersDetailsFailed(QString infos);
 };
 
