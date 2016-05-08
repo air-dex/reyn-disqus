@@ -42,3 +42,4 @@ Images (CC 3.0 license):
 "Reload" by Michael Zenaty: https://thenounproject.com/term/reload/11800
 "Like" by Rhys de Dezsery: https://thenounproject.com/term/like/148798
 "Thums Down" by Rhys de Dezsery: https://thenounproject.com/term/thumbs-down/102572
+"Locked" by Creative Stall: https://thenounproject.com/term/locked/123099

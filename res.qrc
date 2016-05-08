@@ -6,5 +6,6 @@
         <file>res/reload.svg</file>
         <file>res/like.svg</file>
         <file>res/thumbsdown.svg</file>
+        <file>res/locked.svg</file>
     </qresource>
 </RCC>
