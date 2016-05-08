@@ -3,9 +3,9 @@ import QtQuick.Controls 1.4
 
 DisqusTab {
 	id: userPostsTab
-	title: qsTr("My messages")
+	title: qsTr("Messages")
 
 	Text {
-		text: "TODO: My messages tab."
+		text: "TODO: Messages tab."
 	}
 }

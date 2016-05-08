@@ -21,6 +21,7 @@ TabView {
 
 	UserPostsTab {
 		id: myPostsTab
+		title: qsTr("My messages")
 	}
 
 	// My account. "Me" is the authenticated user.

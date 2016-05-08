@@ -218,14 +218,45 @@ Item {
 		}
 	}
 
-	Button {
-		id: viewOnDisqus
-		text: qsTr("View on Disqus")
+	SquareImage {
+		id: likes
+		source: "qrc:/res/like.svg"
+		side: nbLikes.height
 
 		anchors {
 			top: joinedAt.bottom
 			topMargin: bigMargin
 			left: leftSide
+		}
+	}
+
+	Text {
+		id: nbLikes
+		text: "" + user.numLikesReceieved
+
+		font {
+			pointSize: constants.mFontSize
+		}
+
+		anchors {
+			top: likes.top
+			left: likes.right
+			leftMargin: bigMargin
+		}
+	}
+
+	// View on Disqus button
+	Button {
+		id: viewOnDisqus
+		//height: nbLikes.height
+		iconSource: "qrc:/res/eye.svg"
+		text: qsTr("View on disqus.com")
+
+		anchors {
+			top: likes.top
+			left: nbLikes.right
+			leftMargin: bigMargin
+			verticalCenter: nbLikes.verticalCenter
 		}
 
 		onClicked: Qt.openUrlExternally(user.profileURL)
@@ -235,12 +266,36 @@ Item {
 		id: detailsView
 
 		anchors {
-			top: viewOnDisqus.bottom
-			topMargin: constants.margin
+			top: nbLikes.bottom
+			topMargin: bigMargin
 			left: leftSide
 			right: rightSide
 			bottom: parent.bottom
 			bottomMargin: constants.margin
+		}
+
+		UserPostsTab {
+			id: userMessages
+			title: qsTr("Messages (%1)").arg(user.numPosts)
+			// TODO: user posts
+		}
+
+		ForumsTab {
+			id: userForums
+			title: qsTr("Followed frums (%1)").arg(user.numForumsFollowing)
+			// TODO: user forums
+		}
+
+		DisqusTab {
+			id: followingTab
+			title: qsTr("Follows (%1)").arg(user.numFollowing)
+			// TODO: following users
+		}
+
+		DisqusTab {
+			id: followTab
+			title: qsTr("Followed by (%1)").arg(user.numFollowers)
+			// TODO: followers tab
 		}
 	}
 
