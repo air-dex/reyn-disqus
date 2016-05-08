@@ -36,6 +36,7 @@ void UserControl::userDetailsRetrieved(RequestResult reqres)
 			}
 
 			setDisqusUser(res["response"].toObject());
+			emit userDetailsLoaded();
 		} break;
 
 		case API_CALL:

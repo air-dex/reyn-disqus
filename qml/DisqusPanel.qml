@@ -7,6 +7,7 @@ TabView {
 	id: disqusPanel
 
 	readonly property var tabsList: [timelineTab, notificationsTab, forumsTab, myPostsTab, accountTab]
+	property alias me: meControl.disqusUser
 
 	TimelineTab {
 		id: timelineTab
@@ -42,7 +43,10 @@ TabView {
 		onNeedRefresh: disqusPanel.refreshTokens();
 
 		// Loading user details
-		onUserDetailsLoaded: ;
+		onUserDetailsLoaded:  {
+			accountTab.user = me;
+		}
+
 		onLoadUsersDetailsFailed: {
 			infoDialog.text = qsTr("Loading user's details failed.");
 			infoDialog.informativeText = infos;
@@ -78,7 +82,7 @@ TabView {
 		// TODO: allow other tabs to load.
 
 		// Load my account
-		accountTab.userID = settingsControl.getMyID();
+		//accountTab.userID = settingsControl.getMyID();
 	}
 
 	function refreshTokens() {

@@ -28,7 +28,15 @@ Item {
 		onNeedRefresh: userView.needRefresh();
 	}
 
-	onUserIDChanged: control.loadUserDetails(userView.userID);
+	function loadUserDetails(userID) {
+		if (userID === undefined) {
+			userID = userView.user.userID;
+		}
+
+		control.loadUserDetails(userID);
+	}
+
+	onUserIDChanged: loadUserDetails();
 
 	// Widgets for the view.
 
@@ -80,7 +88,7 @@ Item {
 			bottom: name.bottom
 		}
 
-		onClicked: control.loadUserDetails(userView.userID);
+		onClicked: loadUserDetails();
 	}
 
 	// User username
