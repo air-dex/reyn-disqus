@@ -7,5 +7,6 @@
         <file>res/like.svg</file>
         <file>res/thumbsdown.svg</file>
         <file>res/locked.svg</file>
+        <file>res/eye.svg</file>
     </qresource>
 </RCC>

@@ -8,6 +8,7 @@ DISTFILES += \
 	res/like.svg \
 	res/thumbsdown.svg \
 	res/clock.svg \
-	res/locked.svg
+	res/locked.svg \
+	res/eye.svg
 
 RESOURCES += res.qrc
